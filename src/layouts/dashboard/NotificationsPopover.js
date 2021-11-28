@@ -215,9 +215,9 @@ export default function NotificationsPopover() {
       >
         <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">알림</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              읽지 않은 {totalUnRead} 개의 메세지가 있습니다.
             </Typography>
           </Box>
 
@@ -237,7 +237,7 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
+                새로운 알림
               </ListSubheader>
             }
           >
@@ -250,7 +250,7 @@ export default function NotificationsPopover() {
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
+                오래된 알림
               </ListSubheader>
             }
           >
@@ -260,13 +260,13 @@ export default function NotificationsPopover() {
           </List>
         </Scrollbar>
 
-        <Divider />
+        {/* <Divider />
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple component={RouterLink} to="#">
             View All
           </Button>
-        </Box>
+        </Box> */}
       </MenuPopover>
     </>
   );
