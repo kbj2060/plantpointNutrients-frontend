@@ -17,27 +17,27 @@ import { fDateTime } from '../../../utils/formatTime';
 
 const TIMELINES = [
   {
-    title: '1983, orders, $4220',
-    time: faker.date.past(),
-    type: 'order1'
-  },
-  {
-    title: '12 Invoices have been paid',
-    time: faker.date.past(),
-    type: 'order2'
-  },
-  {
-    title: 'Order #37745 from September',
+    title: '분무 자동화 꺼짐',
     time: faker.date.past(),
     type: 'order3'
   },
   {
-    title: 'New order placed #XF-2356',
+    title: '분무 자동화 켜짐',
     time: faker.date.past(),
-    type: 'order4'
+    type: 'order2'
   },
   {
-    title: 'New order placed #XF-2346',
+    title: '조명 꺼짐',
+    time: faker.date.past(),
+    type: 'order3'
+  },
+  {
+    title: '순환 시스템 켜짐',
+    time: faker.date.past(),
+    type: 'order2'
+  },
+  {
+    title: '급수 시스템 에러 발생',
     time: faker.date.past(),
     type: 'order5'
   }
@@ -55,6 +55,7 @@ function OrderItem({ item, isLast }) {
   return (
     <TimelineItem>
       <TimelineSeparator>
+        {/* TYPE을 여러 가지로 나누어 분류할 것. 예를 들어, 빨강 켜짐, 파랑 꺼짐, 노랑 에러 등 */}
         <TimelineDot
           sx={{
             bgcolor:
@@ -85,8 +86,11 @@ export default function AppOrderTimeline() {
           display: 'none'
         }
       }}
+      style={{
+        height: '100%'
+      }}
     >
-      <CardHeader title="Order Timeline" />
+      <CardHeader title="기록" />
       <CardContent>
         <Timeline>
           {TIMELINES.map((item, index) => (

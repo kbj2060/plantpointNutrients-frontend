@@ -1,25 +1,24 @@
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
-// material
+
 import { Card, CardHeader, Box } from '@mui/material';
-//
 import { BaseOptionChart } from '../../charts';
 
 // ----------------------------------------------------------------------
 
 const CHART_DATA = [
+  // {
+  //   name: 'Team A',
+  //   type: 'column',
+  //   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
+  // },
   {
-    name: 'Team A',
-    type: 'column',
-    data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-  },
-  {
-    name: 'Team B',
-    type: 'area',
+    name: '습도',
+    type: 'line',
     data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
   },
   {
-    name: 'Team C',
+    name: '온도',
     type: 'line',
     data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
   }
@@ -27,9 +26,9 @@ const CHART_DATA = [
 
 export default function AppWebsiteVisits() {
   const chartOptions = merge(BaseOptionChart(), {
-    stroke: { width: [0, 2, 3] },
+    stroke: { width: [2, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
-    fill: { type: ['solid', 'gradient', 'solid'] },
+    fill: { type: ['solid', 'solid'] },
     labels: [
       '01/01/2003',
       '02/01/2003',
@@ -60,8 +59,8 @@ export default function AppWebsiteVisits() {
 
   return (
     <Card>
-      <CardHeader title="Website Visits" subheader="(+43%) than last year" />
-      <Box sx={{ p: 3, pb: 1 }} dir="ltr">
+      <CardHeader title="환경" subheader="온도 및 습도" />
+      <Box sx={{ p: 2, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={CHART_DATA} options={chartOptions} height={364} />
       </Box>
     </Card>

@@ -57,10 +57,10 @@ export default function DashboardApp() {
           {/* <Grid item xs={12} md={6} lg={4}>
             <AppTrafficBySite />
           </Grid> */}
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid item xs={12} md={8} lg={8}>
             <AppWebsiteVisits />
           </Grid>
-          <Grid item xs={12} md={6} lg={6}>
+          <Grid item xs={12} md={4} lg={4}>
             <AppOrderTimeline />
           </Grid>
         </Grid>
