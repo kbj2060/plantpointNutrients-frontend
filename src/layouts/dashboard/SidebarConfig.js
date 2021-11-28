@@ -1,13 +1,7 @@
 import { Icon } from '@iconify/react';
-import pieChart2Fill from '@iconify/icons-eva/pie-chart-2-fill';
-import peopleFill from '@iconify/icons-eva/people-fill';
+import dashboardLine from '@iconify/icons-ri/dashboard-line';
 import historyOutlined from '@iconify/icons-ant-design/history-outlined';
-
-import shoppingBagFill from '@iconify/icons-eva/shopping-bag-fill';
-import fileTextFill from '@iconify/icons-eva/file-text-fill';
-import lockFill from '@iconify/icons-eva/lock-fill';
-import personAddFill from '@iconify/icons-eva/person-add-fill';
-import alertTriangleFill from '@iconify/icons-eva/alert-triangle-fill';
+import icon3dCurveAutoColon from '@iconify/icons-carbon/3d-curve-auto-colon';
 
 // ----------------------------------------------------------------------
 
@@ -17,18 +11,18 @@ const sidebarConfig = [
   {
     title: 'dashboard',
     path: '/dashboard/app',
-    icon: getIcon(pieChart2Fill)
+    icon: getIcon(dashboardLine)
+  },
+  {
+    title: 'automation',
+    path: '/dashboard/automation',
+    icon: getIcon(icon3dCurveAutoColon)
   },
   {
     title: 'history',
     path: '/dashboard/history',
     icon: getIcon(historyOutlined)
   }
-  // {
-  //   title: 'product',
-  //   path: '/dashboard/products',
-  //   icon: getIcon(shoppingBagFill)
-  // },
   // {
   //   title: 'blog',
   //   path: '/dashboard/blog',

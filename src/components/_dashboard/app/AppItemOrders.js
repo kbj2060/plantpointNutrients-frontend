@@ -43,9 +43,9 @@ export default function AppItemOrders() {
       <IconWrapperStyle>
         <Icon icon={cycleIcon} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">5일/10분당 1분</Typography>
+      <Typography variant="h3">5일</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        물교체주기/분무주기
+        물교체주기
       </Typography>
     </RootStyle>
   );

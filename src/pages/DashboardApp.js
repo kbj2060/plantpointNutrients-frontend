@@ -12,9 +12,9 @@ import {
   AppOrderTimeline,
   AppCurrentVisits,
   AppWebsiteVisits,
-  AppTrafficBySite,
+  AppSprayCycle,
   AppCurrentSubject,
-  AppConversionRates
+  AppWaterSupply
 } from '../components/_dashboard/app';
 
 // ----------------------------------------------------------------------
@@ -23,22 +23,31 @@ export default function DashboardApp() {
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
-        <Box sx={{ pb: 5 }}>
+        {/* <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Section 1 / Plant 1</Typography>
-        </Box>
+        </Box> */}
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={2}>
             <AppWeeklySales />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={2}>
             <AppNewUsers />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={2}>
             <AppItemOrders />
           </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          <Grid item xs={12} sm={6} md={2}>
             <AppBugReports />
           </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <AppSprayCycle />
+          </Grid>
+          <Grid item xs={12} sm={6} md={2}>
+            <AppWaterSupply />
+          </Grid>
+          {/* <Grid item xs={12} sm={6} md={3}>
+            <AppWater />
+          </Grid> */}
           {/* <Grid item xs={12} md={6} lg={4}>
             <AppCurrentVisits />
           </Grid> */}
