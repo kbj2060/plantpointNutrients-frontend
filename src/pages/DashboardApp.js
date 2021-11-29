@@ -23,28 +23,28 @@ export default function DashboardApp() {
   return (
     <Page title="Dashboard">
       <Container maxWidth="xl">
-        {/* <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Section 1 / Plant 1</Typography>
-        </Box> */}
+        <Box sx={{ pb: 5 }}>
+          <Typography variant="h4">Section 1 / Division 1</Typography>
+        </Box>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={6} sm={6} md={6}>
             <AppWeeklySales />
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={6} sm={6} md={6}>
             <AppNewUsers />
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          {/* <Grid item xs={6} sm={6} md={2}>
             <AppItemOrders />
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={6} sm={6} md={2}>
             <AppBugReports />
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={6} sm={6} md={2}>
             <AppSprayCycle />
           </Grid>
-          <Grid item xs={12} sm={6} md={2}>
+          <Grid item xs={6} sm={6} md={2}>
             <AppWaterSupply />
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={12} sm={6} md={3}>
             <AppWater />
           </Grid> */}

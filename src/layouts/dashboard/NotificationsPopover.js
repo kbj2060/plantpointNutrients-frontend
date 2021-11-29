@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { noCase } from 'change-case';
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { set, sub, formatDistanceToNow } from 'date-fns';
+import { set, sub, formatDistanceToNow, isToday } from 'date-fns';
 import { Icon } from '@iconify/react';
 import bellFill from '@iconify/icons-eva/bell-fill';
 import clockFill from '@iconify/icons-eva/clock-fill';
@@ -14,10 +14,7 @@ import {
   Box,
   List,
   Badge,
-  Button,
   Avatar,
-  Tooltip,
-  Divider,
   IconButton,
   Typography,
   ListItemText,
@@ -41,7 +38,7 @@ const NOTIFICATIONS = [
     avatar: null,
     type: 'order_placed',
     createdAt: set(new Date(), { hours: 10, minutes: 30 }),
-    isUnRead: true
+    isToday: isToday(set(new Date(), { hours: 10, minutes: 30 }))
   },
   {
     id: faker.datatype.uuid(),
@@ -49,8 +46,8 @@ const NOTIFICATIONS = [
     description: 'answered to your comment on the Minimal',
     avatar: mockImgAvatar(2),
     type: 'friend_interactive',
-    createdAt: sub(new Date(), { hours: 3, minutes: 30 }),
-    isUnRead: true
+    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
+    isToday: isToday(sub(new Date(), { days: 2, hours: 3, minutes: 30 }))
   },
   {
     id: faker.datatype.uuid(),
@@ -58,8 +55,8 @@ const NOTIFICATIONS = [
     description: '5 unread messages',
     avatar: null,
     type: 'chat_message',
-    createdAt: sub(new Date(), { days: 1, hours: 3, minutes: 30 }),
-    isUnRead: false
+    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
+    isToday: isToday(sub(new Date(), { days: 2, hours: 3, minutes: 30 }))
   },
   {
     id: faker.datatype.uuid(),
@@ -68,7 +65,7 @@ const NOTIFICATIONS = [
     avatar: null,
     type: 'mail',
     createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isUnRead: false
+    isToday: isToday(sub(new Date(), { days: 2, hours: 3, minutes: 30 }))
   },
   {
     id: faker.datatype.uuid(),
@@ -77,7 +74,7 @@ const NOTIFICATIONS = [
     avatar: null,
     type: 'order_shipped',
     createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
-    isUnRead: false
+    isToday: isToday(sub(new Date(), { days: 3, hours: 3, minutes: 30 }))
   }
 ];
 
@@ -137,7 +134,7 @@ function NotificationItem({ notification }) {
         py: 1.5,
         px: 2.5,
         mt: '1px',
-        ...(notification.isUnRead && {
+        ...(notification.isToday && {
           bgcolor: 'action.selected'
         })
       }}
@@ -170,7 +167,7 @@ export default function NotificationsPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState(NOTIFICATIONS);
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
+  const totalIsToday = notifications.filter((item) => item.isToday === true).length;
 
   const handleOpen = () => {
     setOpen(true);
@@ -180,14 +177,14 @@ export default function NotificationsPopover() {
     setOpen(false);
   };
 
-  const handleMarkAllAsRead = () => {
-    setNotifications(
-      notifications.map((notification) => ({
-        ...notification,
-        isUnRead: false
-      }))
-    );
-  };
+  // const handleMarkAllAsRead = () => {
+  //   setNotifications(
+  //     notifications.map((notification) => ({
+  //       ...notification,
+  //       isToday: false
+  //     }))
+  //   );
+  // };
 
   return (
     <>
@@ -202,7 +199,7 @@ export default function NotificationsPopover() {
           })
         }}
       >
-        <Badge badgeContent={totalUnRead} color="error">
+        <Badge badgeContent={totalIsToday} color="error">
           <Icon icon={bellFill} width={20} height={20} />
         </Badge>
       </IconButton>
@@ -213,27 +210,28 @@ export default function NotificationsPopover() {
         anchorEl={anchorRef.current}
         sx={{ width: 360 }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
+        {/* <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="subtitle1">알림</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              읽지 않은 {totalUnRead} 개의 메세지가 있습니다.
+              읽지 않은 {totalIsToday} 개의 메세지가 있습니다.
             </Typography>
           </Box>
 
-          {totalUnRead > 0 && (
+          {totalIsToday > 0 && (
             <Tooltip title=" Mark all as read">
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
+              <IconButton color="primary">
                 <Icon icon={doneAllFill} width={20} height={20} />
               </IconButton>
             </Tooltip>
           )}
         </Box>
 
-        <Divider />
+        <Divider /> */}
 
         <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
-          <List
+          {/* <List
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
@@ -244,13 +242,13 @@ export default function NotificationsPopover() {
             {notifications.slice(0, 2).map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
-          </List>
+          </List> */}
 
           <List
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                오래된 알림
+                알림
               </ListSubheader>
             }
           >

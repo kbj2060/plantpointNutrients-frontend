@@ -44,6 +44,14 @@ const SECONDARY = {
   darker: '#091A7A',
   contrastText: '#fff'
 };
+// const TERTIARY = {
+//   lighter: '#28E0D1',
+//   light: '#1DA196',
+//   main: '#1C9490',
+//   dark: '#177A77',
+//   darker: '#105452',
+//   contrastText: '#fff'
+// };
 const INFO = {
   lighter: '#D0F2FF',
   light: '#74CAFF',

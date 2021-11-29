@@ -63,19 +63,17 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       </Box>
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none" component={RouterLink} to="#">
-          <AccountStyle>
-            <Avatar src={account.photoURL} alt="photoURL" />
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
-              </Typography>
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
-            </Box>
-          </AccountStyle>
-        </Link>
+        <AccountStyle>
+          <Avatar src={account.photoURL} alt="photoURL" />
+          <Box sx={{ ml: 2 }}>
+            <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
+              {account.displayName}
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+              {account.role}
+            </Typography>
+          </Box>
+        </AccountStyle>
       </Box>
 
       <NavSection navConfig={sidebarConfig} />
@@ -105,11 +103,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               PLANTPOINT
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              kbj2060@naver.com
+              {account.email}
             </Typography>
           </Box>
           <Button fullWidth target="_blank" variant="contained">
-            이메일
+            HOMEPAGE
           </Button>
         </Stack>
       </Box>

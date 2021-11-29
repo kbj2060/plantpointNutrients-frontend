@@ -2,6 +2,7 @@ import { Icon } from '@iconify/react';
 import dashboardLine from '@iconify/icons-ri/dashboard-line';
 import historyOutlined from '@iconify/icons-ant-design/history-outlined';
 import icon3dCurveAutoColon from '@iconify/icons-carbon/3d-curve-auto-colon';
+import reportIcon from '@iconify/icons-carbon/report';
 
 // ----------------------------------------------------------------------
 
@@ -22,6 +23,11 @@ const sidebarConfig = [
     title: 'history',
     path: '/dashboard/history',
     icon: getIcon(historyOutlined)
+  },
+  {
+    title: 'reports',
+    path: '/dashboard/reports',
+    icon: getIcon(reportIcon)
   }
   // {
   //   title: 'blog',
