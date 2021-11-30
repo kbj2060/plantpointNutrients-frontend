@@ -7,7 +7,7 @@ export function fDate(date) {
 }
 
 export function fShortDate(date) {
-  return format(new Date(date), 'MM-dd HH:mm');
+  return format(new Date(date), 'MM.dd HH:mm');
 }
 
 export function fDateTime(date) {

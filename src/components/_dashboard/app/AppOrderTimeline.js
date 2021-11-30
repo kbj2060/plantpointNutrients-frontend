@@ -90,7 +90,7 @@ export default function AppOrderTimeline() {
         height: '100%'
       }}
     >
-      <CardHeader title="기록" />
+      <CardHeader title="최근 기록" />
       <CardContent>
         <Timeline>
           {TIMELINES.map((item, index) => (

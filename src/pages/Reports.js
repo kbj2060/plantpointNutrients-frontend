@@ -71,44 +71,7 @@ const TABLE_HEAD = [
 
 export default function Reports() {
   const [page, setPage] = useState(0);
-  const [order, setOrder] = useState('asc');
-  const [selected, setSelected] = useState([]);
-  const [orderBy, setOrderBy] = useState('name');
-  const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  // const handleRequestSort = (event, property) => {
-  //   const isAsc = orderBy === property && order === 'asc';
-  //   setOrder(isAsc ? 'desc' : 'asc');
-  //   setOrderBy(property);
-  // };
-
-  // const handleSelectAllClick = (event) => {
-  //   if (event.target.checked) {
-  //     const newSelecteds = USERLIST.map((n) => n.name);
-  //     setSelected(newSelecteds);
-  //     return;
-  //   }
-  //   setSelected([]);
-  // };
-
-  // const handleClick = (event, name) => {
-  //   const selectedIndex = selected.indexOf(name);
-  //   let newSelected = [];
-  //   if (selectedIndex === -1) {
-  //     newSelected = newSelected.concat(selected, name);
-  //   } else if (selectedIndex === 0) {
-  //     newSelected = newSelected.concat(selected.slice(1));
-  //   } else if (selectedIndex === selected.length - 1) {
-  //     newSelected = newSelected.concat(selected.slice(0, -1));
-  //   } else if (selectedIndex > 0) {
-  //     newSelected = newSelected.concat(
-  //       selected.slice(0, selectedIndex),
-  //       selected.slice(selectedIndex + 1)
-  //     );
-  //   }
-  //   setSelected(newSelected);
-  // };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -119,15 +82,8 @@ export default function Reports() {
     setPage(0);
   };
 
-  // const handleFilterByName = (event) => {
-  //   setFilterName(event.target.value);
-  // };
-
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - REPORTLIST.length) : 0;
-
-  // const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
   const filteredUsers = REPORTLIST;
-
   const isUserNotFound = filteredUsers.length === 0;
 
   return (
@@ -137,34 +93,13 @@ export default function Reports() {
           <Typography variant="h4" gutterBottom>
             에러 보고서
           </Typography>
-          {/* <Button
-            variant="contained"
-            component={RouterLink}
-            to="#"
-            startIcon={<Icon icon={plusFill} />}
-          >
-            New User
-          </Button> */}
         </Stack>
 
         <Card>
-          {/* <UserListToolbar
-            numSelected={selected.length}
-            filterName={filterName}
-            // onFilterName={handleFilterByName}
-          /> */}
-
           <Scrollbar>
             <TableContainer sx={{ minWidth: 300 }}>
               <Table>
-                <UserListHead
-                  // order={order}
-                  // orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
-                  rowCount={REPORTLIST.length}
-                  // onRequestSort={handleRequestSort}
-                  // onSelectAllClick={handleSelectAllClick}
-                />
+                <UserListHead headLabel={TABLE_HEAD} rowCount={REPORTLIST.length} />
                 <TableBody>
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -172,29 +107,27 @@ export default function Reports() {
                       const { id, level, date, process, name } = row;
                       return (
                         <TableRow hover key={id} tabIndex={-1} role="checkbox">
-                          {/* <TableCell padding="checkbox">
-                            <Checkbox
-                              onChange={(event) => handleClick(event, name)}
-                            />
-                          </TableCell> */}
-                          <TableCell align="left">{level}</TableCell>
+                          <TableCell align="left">
+                            <Label
+                              variant="filled"
+                              color={
+                                (level === 3 && 'error') || (level === 2 && 'warning') || 'info'
+                              }
+                              sx={{
+                                textTransform: 'uppercase'
+                              }}
+                            >
+                              {level}
+                            </Label>
+                          </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               {/* <Avatar alt={name} src={avatarUrl} /> */}
                               {name}
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{process}</TableCell>
-                          {/* <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell> */}
-                          <TableCell align="left">
-                            {/* <Label variant="ghost" color={(status === 0 && 'error') || 'success'}>
-                              {(status === 0 && '꺼짐') || '켜짐'}
-                            </Label> */}
-                            {date}
-                          </TableCell>
-                          {/* <TableCell align="right">
-                            <UserMoreMenu />
-                          </TableCell> */}
+                          <TableCell align="left"> {process} </TableCell>
+                          <TableCell align="left"> {date} </TableCell>
                         </TableRow>
                       );
                     })}
@@ -208,7 +141,7 @@ export default function Reports() {
                   <TableBody>
                     <TableRow>
                       <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
+                        <SearchNotFound />
                       </TableCell>
                     </TableRow>
                   </TableBody>

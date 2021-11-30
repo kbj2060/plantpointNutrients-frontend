@@ -8,9 +8,9 @@ import { fShortDate } from '../utils/formatTime';
 
 const reports = [...Array(24)].map((_, index) => ({
   id: faker.datatype.uuid(),
-  level: 4,
+  level: faker.datatype.number({ min: 1, max: 3, precision: 1 }),
   name: faker.name.findName(),
-  process: 'kbj',
+  process: faker.name.findName(),
   date: fShortDate(faker.date.past())
 }));
 
