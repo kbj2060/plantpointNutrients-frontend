@@ -10,3 +10,4 @@ export { default as AppTasks } from './AppTasks';
 export { default as AppSprayCycle } from './AppSprayCycle';
 export { default as AppWebsiteVisits } from './AppWebsiteVisits';
 export { default as AppWeeklySales } from './AppWeeklySales';
+export { default as AppDevices } from './AppDevices';

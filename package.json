@@ -70,6 +70,7 @@
     "@babel/eslint-parser": "^7.15.7",
     "@iconify/icons-akar-icons": "^1.1.27",
     "@iconify/icons-ant-design": "^1.1.1",
+    "@iconify/icons-bi": "^1.1.11",
     "@iconify/icons-bx": "^1.1.2",
     "@iconify/icons-carbon": "^1.1.7",
     "@iconify/icons-entypo": "^1.1.0",
