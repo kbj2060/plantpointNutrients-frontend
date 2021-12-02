@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { noCase } from 'change-case';
 import { useRef, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { set, sub, formatDistanceToNow, isToday } from 'date-fns';
+import { set, sub, formatDistanceToNowStrict, isToday } from 'date-fns';
 import { Icon } from '@iconify/react';
 import bellFill from '@iconify/icons-eva/bell-fill';
 import clockFill from '@iconify/icons-eva/clock-fill';
-import doneAllFill from '@iconify/icons-eva/done-all-fill';
-// material
 import { alpha } from '@mui/material/styles';
 import {
   Box,
@@ -35,7 +33,7 @@ const NOTIFICATIONS = [
     id: faker.datatype.uuid(),
     title: 'Your order is placed',
     description: 'waiting for shipping',
-    avatar: null,
+    avatar: mockImgAvatar(2),
     type: 'order_placed',
     createdAt: set(new Date(), { hours: 10, minutes: 30 }),
     isToday: isToday(set(new Date(), { hours: 10, minutes: 30 }))
@@ -155,7 +153,7 @@ function NotificationItem({ notification }) {
             }}
           >
             <Box component={Icon} icon={clockFill} sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {formatDistanceToNow(new Date(notification.createdAt))}
+            {formatDistanceToNowStrict(new Date(notification.createdAt), { unit: 'hour' })}
           </Typography>
         }
       />
@@ -176,15 +174,6 @@ export default function NotificationsPopover() {
   const handleClose = () => {
     setOpen(false);
   };
-
-  // const handleMarkAllAsRead = () => {
-  //   setNotifications(
-  //     notifications.map((notification) => ({
-  //       ...notification,
-  //       isToday: false
-  //     }))
-  //   );
-  // };
 
   return (
     <>
@@ -210,40 +199,7 @@ export default function NotificationsPopover() {
         anchorEl={anchorRef.current}
         sx={{ width: 360 }}
       >
-        {/* <Box sx={{ display: 'flex', alignItems: 'center', py: 2, px: 2.5 }}>
-          <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">알림</Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              읽지 않은 {totalIsToday} 개의 메세지가 있습니다.
-            </Typography>
-          </Box>
-
-          {totalIsToday > 0 && (
-            <Tooltip title=" Mark all as read">
-              <IconButton color="primary" onClick={handleMarkAllAsRead}>
-              <IconButton color="primary">
-                <Icon icon={doneAllFill} width={20} height={20} />
-              </IconButton>
-            </Tooltip>
-          )}
-        </Box>
-
-        <Divider /> */}
-
         <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
-          {/* <List
-            disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                새로운 알림
-              </ListSubheader>
-            }
-          >
-            {notifications.slice(0, 2).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
-            ))}
-          </List> */}
-
           <List
             disablePadding
             subheader={
@@ -252,19 +208,11 @@ export default function NotificationsPopover() {
               </ListSubheader>
             }
           >
-            {notifications.slice(2, 5).map((notification) => (
+            {notifications.map((notification) => (
               <NotificationItem key={notification.id} notification={notification} />
             ))}
           </List>
         </Scrollbar>
-
-        {/* <Divider />
-
-        <Box sx={{ p: 1 }}>
-          <Button fullWidth disableRipple component={RouterLink} to="#">
-            View All
-          </Button>
-        </Box> */}
       </MenuPopover>
     </>
   );
