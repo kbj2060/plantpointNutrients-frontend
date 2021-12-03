@@ -7,11 +7,6 @@ import { BaseOptionChart } from '../../charts';
 // ----------------------------------------------------------------------
 
 const CHART_DATA = [
-  // {
-  //   name: 'Team A',
-  //   type: 'column',
-  //   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30]
-  // },
   {
     name: '습도',
     type: 'line',
@@ -24,7 +19,7 @@ const CHART_DATA = [
   }
 ];
 
-export default function AppWebsiteVisits() {
+export default function AppEnvironmentsChart() {
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [2, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },

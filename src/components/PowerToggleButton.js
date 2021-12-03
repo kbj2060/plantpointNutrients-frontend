@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import powerIcon from '@iconify/icons-bi/power';
 import IconButton from '@mui/material/IconButton';
 import { Icon } from '@iconify/react';
@@ -11,11 +11,11 @@ PowerToggleButton.propTypes = {
 };
 
 export default function PowerToggleButton({ label }) {
-  const [selected, setSelected] = React.useState(false);
+  const [selected, setSelected] = useState(false);
   const theme = useTheme();
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="space-between">
+    <Stack direction="row" alignItems="center" justifyContent="flex-end">
       <Typography>{label}</Typography>
       <IconButton
         value="check"

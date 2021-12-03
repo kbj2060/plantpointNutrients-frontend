@@ -1,17 +1,8 @@
-import { filter } from 'lodash';
-import { Icon } from '@iconify/react';
-import { sentenceCase } from 'change-case';
 import { useState } from 'react';
-import plusFill from '@iconify/icons-eva/plus-fill';
-import { Link as RouterLink } from 'react-router-dom';
-// material
 import {
   Card,
   Table,
   Stack,
-  Avatar,
-  Button,
-  Checkbox,
   TableRow,
   TableBody,
   TableCell,
@@ -20,16 +11,12 @@ import {
   TableContainer,
   TablePagination
 } from '@mui/material';
-// components
 import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
-import { UserListHead, UserListToolbar, UserMoreMenu } from '../components/_dashboard/user';
-//
+import { TableListHead } from '../components/table';
 import REPORTLIST from '../_mocks_/report';
-
-// ----------------------------------------------------------------------
 
 const TABLE_HEAD = [
   { id: 'level', label: '단계', alignRight: false },
@@ -37,37 +24,6 @@ const TABLE_HEAD = [
   { id: 'process', label: '처리', alignRight: false },
   { id: 'date', label: '날짜', alignRight: false }
 ];
-
-// ----------------------------------------------------------------------
-
-// function descendingComparator(a, b, orderBy) {
-//   if (b[orderBy] < a[orderBy]) {
-//     return -1;
-//   }
-//   if (b[orderBy] > a[orderBy]) {
-//     return 1;
-//   }
-//   return 0;
-// }
-
-// function getComparator(order, orderBy) {
-//   return order === 'desc'
-//     ? (a, b) => descendingComparator(a, b, orderBy)
-//     : (a, b) => -descendingComparator(a, b, orderBy);
-// }
-
-// function applySortFilter(array, comparator, query) {
-//   const stabilizedThis = array.map((el, index) => [el, index]);
-//   stabilizedThis.sort((a, b) => {
-//     const order = comparator(a[0], b[0]);
-//     if (order !== 0) return order;
-//     return a[1] - b[1];
-//   });
-//   if (query) {
-//     return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
-//   }
-//   return stabilizedThis.map((el) => el[0]);
-// }
 
 export default function Reports() {
   const [page, setPage] = useState(0);
@@ -99,7 +55,7 @@ export default function Reports() {
           <Scrollbar>
             <TableContainer sx={{ minWidth: 300 }}>
               <Table>
-                <UserListHead headLabel={TABLE_HEAD} rowCount={REPORTLIST.length} />
+                <TableListHead headLabel={TABLE_HEAD} rowCount={REPORTLIST.length} />
                 <TableBody>
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -122,7 +78,6 @@ export default function Reports() {
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
-                              {/* <Avatar alt={name} src={avatarUrl} /> */}
                               {name}
                             </Stack>
                           </TableCell>

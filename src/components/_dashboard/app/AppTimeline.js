@@ -78,7 +78,7 @@ function OrderItem({ item, isLast }) {
   );
 }
 
-export default function AppOrderTimeline() {
+export default function AppTimeline() {
   return (
     <Card
       sx={{

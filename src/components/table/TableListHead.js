@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types';
-// material
 import { visuallyHidden } from '@mui/utils';
-import { Box, Checkbox, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
+import { Box, TableRow, TableCell, TableHead, TableSortLabel } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-UserListHead.propTypes = {
+TableListHead.propTypes = {
   order: PropTypes.oneOf(['asc', 'desc']),
   orderBy: PropTypes.string,
   rowCount: PropTypes.number,
@@ -15,7 +14,7 @@ UserListHead.propTypes = {
   onSelectAllClick: PropTypes.func
 };
 
-export default function UserListHead({
+export default function TableListHead({
   order,
   orderBy,
   rowCount,
