@@ -20,28 +20,28 @@ export default function Automation() {
         <Grid container spacing={3}>
           <Grid item xs={6} sm={6} md={6}>
             <AutomationControlComponent
-              label="물공급량"
+              label="waterSupply"
               icon={bxWater}
               color={theme.palette.info}
             />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
             <AutomationControlComponent
-              label="물교체주기"
+              label="waterCycle"
               icon={cycleIcon}
               color={theme.palette.warning}
             />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
             <AutomationControlComponent
-              label="분무주기"
+              label="waterSpray"
               icon={sprayIcon}
               color={theme.palette.primary}
             />
           </Grid>
           <Grid item xs={6} sm={6} md={6}>
             <AutomationControlComponent
-              label="양액공급량"
+              label="nutrientSupply"
               icon={bottleIcon}
               color={theme.palette.error}
             />

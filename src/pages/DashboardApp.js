@@ -17,22 +17,26 @@ export default function DashboardApp() {
   return (
     <Page title="Dashboard">
       <Container maxWidth={false}>
-        <Box sx={{ pb: 5 }}>
+        {/* <Box sx={{ pb: 5 }}>
           <Typography variant="h4">Section 1 / Division 1</Typography>
-        </Box>
+        </Box> */}
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={4}>
+          <Grid item xs={12} sm={12} md={4} sx={{ minWidth: '250px' }}>
             <AppDevices />
           </Grid>
           <Grid item xs={6} sm={6} md={4}>
             <AppEnvironmentDisplay
-              label="온도"
+              label="temperature"
               icon={temperature16Regular}
               color={theme.palette.primary}
             />
           </Grid>
           <Grid item xs={6} sm={6} md={4}>
-            <AppEnvironmentDisplay label="습도" icon={humidityIcon} color={theme.palette.info} />
+            <AppEnvironmentDisplay
+              label="humidity"
+              icon={humidityIcon}
+              color={theme.palette.info}
+            />
           </Grid>
           <Grid item xs={12} md={8} lg={8}>
             <AppEnvironmentsChart />

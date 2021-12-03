@@ -15,7 +15,7 @@ export default function PowerToggleButton({ label }) {
   const theme = useTheme();
 
   return (
-    <Stack direction="row" alignItems="center" justifyContent="flex-end">
+    <Stack direction="row" alignItems="center" justifyContent="space-between">
       <Typography>{label}</Typography>
       <IconButton
         value="check"

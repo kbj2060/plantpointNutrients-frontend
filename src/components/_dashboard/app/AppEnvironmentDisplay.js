@@ -2,7 +2,8 @@ import { Icon } from '@iconify/react';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-// ----------------------------------------------------------------------
+import EN2KR from '../../../utils/EN2KR';
+import formatUnit from '../../../utils/formatUnit';
 
 const RootStyle = styled(Card)(({ theme, backgroundColor }) => ({
   boxShadow: 'none',
@@ -40,9 +41,9 @@ export default function AppEnvironmentDisplay({ label, icon, color }) {
       <IconWrapperStyle backgroundColor={color}>
         <Icon icon={icon} width={24} height={24} />
       </IconWrapperStyle>
-      <Typography variant="h3">24</Typography>
+      <Typography variant="h3">24 {formatUnit[label]}</Typography>
       <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-        {label}
+        {EN2KR[label]}
       </Typography>
     </RootStyle>
   );

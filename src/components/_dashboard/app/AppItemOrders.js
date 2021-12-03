@@ -1,13 +1,7 @@
 import { Icon } from '@iconify/react';
-import windowsFilled from '@iconify/icons-ant-design/windows-filled';
 import cycleIcon from '@iconify/icons-entypo/cycle';
-// material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../utils/formatNumber';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',

@@ -11,7 +11,7 @@ export function fShortDate(date) {
 }
 
 export function fDateTime(date) {
-  return format(new Date(date), 'dd MMM yyyy HH:mm');
+  return format(new Date(date), 'MM.dd HH:mm');
 }
 
 export function fDateTimeSuffix(date) {

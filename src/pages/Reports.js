@@ -27,7 +27,7 @@ const TABLE_HEAD = [
 
 export default function Reports() {
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,7 +55,7 @@ export default function Reports() {
           <Scrollbar>
             <TableContainer sx={{ minWidth: 300 }}>
               <Table>
-                <TableListHead headLabel={TABLE_HEAD} rowCount={REPORTLIST.length} />
+                <TableListHead headLabel={TABLE_HEAD} />
                 <TableBody>
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)

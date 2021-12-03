@@ -7,6 +7,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import EN2KR from '../../../utils/EN2KR';
+import formatUnit from '../../../utils/formatUnit';
 
 const RootStyle = styled(Card)(({ theme, backgroundColor }) => ({
   boxShadow: 'none',
@@ -73,17 +75,19 @@ export default function AutomationControlComponent({ label, icon, color }) {
         <IconWrapperStyle backgroundColor={color}>
           <Icon icon={icon} width={24} height={24} />
         </IconWrapperStyle>
-        <Typography variant="h3">{amount}L</Typography>
+        <Typography variant="h3">
+          {amount} {formatUnit[label]}
+        </Typography>
         <Typography variant="subtitle2" sx={{ opacity: 0.72 }}>
-          {label}
+          {EN2KR[label]}
         </Typography>
       </RootStyle>
       <Modal open={open} onClose={handleClose}>
         <ModalStyle backgroundColor={color}>
-          <Typography variant="subtitle2">{label}</Typography>
+          <Typography variant="subtitle2">{EN2KR[label]}</Typography>
           <Stack direction="row">
             <Typography variant="h3" sx={{ margin: 'auto' }}>
-              {amount}L
+              {amount} {formatUnit[label]}
             </Typography>
             <ButtonGroup orientation="vertical" color="inherit">
               <IconButton size="small" onClick={handleAmountUp}>

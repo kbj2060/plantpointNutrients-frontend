@@ -1,12 +1,8 @@
 import faker from 'faker';
 import { sample } from 'lodash';
-// utils
-import { mockImgAvatar } from '../utils/mockImages';
 import { fShortDate } from '../utils/formatTime';
 
-// ----------------------------------------------------------------------
-
-const users = [...Array(24)].map((_, index) => ({
+const users = [...Array(24)].map(() => ({
   id: faker.datatype.uuid(),
   name: '워터펌프',
   date: fShortDate(faker.date.past()),

@@ -1,13 +1,7 @@
 import { Icon } from '@iconify/react';
 import bottleIcon from '@iconify/icons-tabler/bottle';
-
-// material
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-// utils
-import { fShortenNumber } from '../../../utils/formatNumber';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -32,10 +26,6 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
     0.24
   )} 100%)`
 }));
-
-// ----------------------------------------------------------------------
-
-const TOTAL = 234;
 
 export default function AppBugReports() {
   return (
