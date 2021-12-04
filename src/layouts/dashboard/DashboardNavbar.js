@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import menu2Fill from '@iconify/icons-eva/menu-2-fill';
 import { alpha, styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import { MHidden } from '../../components/@material-extend';
 import AccountPopover from './AccountPopover';
 import NotificationsPopover from './NotificationsPopover';
@@ -47,11 +47,14 @@ export default function DashboardNavbar({ onOpenSidebar }) {
           </IconButton>
         </MHidden>
 
-        {/* <Searchbar /> */}
+        <Box>
+          <Typography variant="h5" color="black">
+            Section 1 / Division 1
+          </Typography>
+        </Box>
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack direction="row" alignItems="center" spacing={{ xs: 0.5, sm: 1.5 }}>
-          {/* <LanguagePopover /> */}
           <NotificationsPopover />
           <AccountPopover />
         </Stack>

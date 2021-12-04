@@ -2,9 +2,6 @@ import { Icon } from '@iconify/react';
 import sprayIcon from '@iconify/icons-mdi/spray';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
-import { fShortenNumber } from '../../../utils/formatNumber';
-
-// ----------------------------------------------------------------------
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -29,10 +26,6 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
     0.24
   )} 100%)`
 }));
-
-// ----------------------------------------------------------------------
-
-const TOTAL = 714000;
 
 export default function AppSprayCycle() {
   return (

@@ -27,10 +27,6 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   )} 100%)`
 }));
 
-// ----------------------------------------------------------------------
-
-const TOTAL = 1352831;
-
 export default function AppNewUsers() {
   return (
     <RootStyle>

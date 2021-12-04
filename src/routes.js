@@ -4,7 +4,7 @@ import DashboardLayout from './layouts/dashboard';
 import LogoOnlyLayout from './layouts/LogoOnlyLayout';
 //
 import Login from './pages/Login';
-import Register from './pages/Register';
+import Control from './pages/Control';
 import DashboardApp from './pages/DashboardApp';
 import Automation from './pages/Automation';
 import History from './pages/History';
@@ -21,6 +21,7 @@ export default function Router() {
       children: [
         { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
+        { path: 'control', element: <Control /> },
         { path: 'history', element: <History /> },
         { path: 'automation', element: <Automation /> },
         { path: 'reports', element: <Reports /> }
@@ -31,7 +32,6 @@ export default function Router() {
       element: <LogoOnlyLayout />,
       children: [
         { path: 'login', element: <Login /> },
-        { path: 'register', element: <Register /> },
         { path: '404', element: <NotFound /> },
         { path: '/', element: <Navigate to="/dashboard" /> },
         { path: '*', element: <Navigate to="/404" /> }

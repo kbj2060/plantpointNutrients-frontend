@@ -1,14 +1,13 @@
 // material
 import { useTheme } from '@emotion/react';
-import { Box, Grid, Container, Typography } from '@mui/material';
+import { Grid, Container } from '@mui/material';
 import temperature16Regular from '@iconify/icons-fluent/temperature-16-regular';
 import humidityIcon from '@iconify/icons-iwwa/humidity';
 import Page from '../components/Page';
 import {
   AppEnvironmentDisplay,
   AppTimeline,
-  AppEnvironmentsChart,
-  AppDevices
+  AppEnvironmentsChart
 } from '../components/_dashboard/app';
 
 export default function DashboardApp() {
@@ -17,21 +16,18 @@ export default function DashboardApp() {
   return (
     <Page title="Dashboard">
       <Container maxWidth={false}>
-        {/* <Box sx={{ pb: 5 }}>
-          <Typography variant="h4">Section 1 / Division 1</Typography>
-        </Box> */}
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={4} sx={{ minWidth: '250px' }}>
+          {/* <Grid item xs={12} sm={12} md={4} sx={{ minWidth: '250px' }}>
             <AppDevices />
-          </Grid>
-          <Grid item xs={6} sm={6} md={4}>
+          </Grid> */}
+          <Grid item xs={6} sm={6} md={6}>
             <AppEnvironmentDisplay
               label="temperature"
               icon={temperature16Regular}
               color={theme.palette.primary}
             />
           </Grid>
-          <Grid item xs={6} sm={6} md={4}>
+          <Grid item xs={6} sm={6} md={6}>
             <AppEnvironmentDisplay
               label="humidity"
               icon={humidityIcon}
