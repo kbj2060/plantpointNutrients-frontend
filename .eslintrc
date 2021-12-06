@@ -55,6 +55,10 @@
     "import/no-extraneous-dependencies": 0,
     "react/jsx-key": 1,
     "react-hooks/rules-of-hooks": 2,
+    "import/no-unresolved": [
+      2, 
+      { "caseSensitive": false }
+    ],
     "no-unused-vars": [
       1,
       {
