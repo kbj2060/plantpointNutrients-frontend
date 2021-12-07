@@ -1,9 +1,11 @@
+import { useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import EN2KR from '../../../utils/EN2KR';
 import formatUnit from '../../../utils/formatUnit';
+import { getTemperature } from '../../../api/temperature';
 
 const RootStyle = styled(Card)(({ theme, backgroundColor }) => ({
   boxShadow: 'none',
@@ -36,6 +38,15 @@ AppEnvironmentDisplay.propTypes = {
 };
 
 export default function AppEnvironmentDisplay({ label, icon, color }) {
+  useEffect(() => {
+    const filters = {
+      limit: 1
+    };
+    getTemperature(filters).then((res) => {
+      console.log(res);
+    });
+  });
+
   return (
     <RootStyle backgroundColor={color}>
       <IconWrapperStyle backgroundColor={color}>
