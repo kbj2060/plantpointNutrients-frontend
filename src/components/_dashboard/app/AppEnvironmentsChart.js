@@ -1,42 +1,36 @@
+import { useEffect, useState } from 'react';
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 
 import { Card, CardHeader, Box } from '@mui/material';
 import { BaseOptionChart } from '../../charts';
+import { getEnvironment } from '../../../api/environment';
 
 // ----------------------------------------------------------------------
 
 const CHART_DATA = [
   {
-    name: '습도',
+    name: 'humidity',
     type: 'line',
-    data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43]
+    data: []
   },
   {
-    name: '온도',
+    name: 'temperature',
     type: 'line',
-    data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39]
+    data: []
   }
 ];
 
 export default function AppEnvironmentsChart() {
+  const [temperature, setTemperature] = useState([]);
+  const [humidity, setHumidity] = useState([]);
+  const [labels, setLabels] = useState([]);
+
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [2, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
     fill: { type: ['solid', 'solid'] },
-    labels: [
-      '01/01/2003',
-      '02/01/2003',
-      '03/01/2003',
-      '04/01/2003',
-      '05/01/2003',
-      '06/01/2003',
-      '07/01/2003',
-      '08/01/2003',
-      '09/01/2003',
-      '10/01/2003',
-      '11/01/2003'
-    ],
+    labels: [],
     xaxis: { type: 'datetime' },
     tooltip: {
       shared: true,
@@ -51,6 +45,25 @@ export default function AppEnvironmentsChart() {
       }
     }
   });
+
+  useEffect(() => {
+    // redux 로 올려서 useSelector를 통해 subscribe 하도록 만들기.
+    function getTemperature() {
+      getEnvironment('temperature', { today: true }).then((res) => {
+        const result = res === null ? [] : res;
+        setTemperature(result);
+      });
+    }
+    getTemperature();
+    const eInterval = setInterval(() => {
+      getTemperature();
+      console.log(temperature);
+    }, 10 * 1000);
+
+    return () => {
+      clearInterval(eInterval);
+    };
+  }, []);
 
   return (
     <Card>

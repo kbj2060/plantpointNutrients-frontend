@@ -1,7 +1,7 @@
 import { Stack, Box, Card } from '@mui/material';
 import faker from 'faker';
 import { styled } from '@mui/material/styles';
-import PowerToggleButton from '../../PowerToggleButton';
+import PowerToggleButton from '../PowerToggleButton';
 
 const LABELS = [...Array(6)].map(() => ({ label: faker.name.lastName() }));
 const RootStyle = styled(Card)(({ theme }) => ({

@@ -6,7 +6,7 @@ import bottleIcon from '@iconify/icons-tabler/bottle';
 import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import Page from '../components/Page';
-import { AutomationControlComponent } from '../components/_dashboard/automation';
+import { AutomationControlComponent } from '../components/automation';
 
 export default function Automation() {
   const theme = useTheme();

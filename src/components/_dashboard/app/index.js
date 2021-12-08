@@ -1,12 +1,3 @@
-export { default as AppBugReports } from './AppBugReports';
-export { default as AppCurrentSubject } from './AppCurrentSubject';
-export { default as AppCurrentVisits } from './AppCurrentVisits';
-export { default as AppItemOrders } from './AppItemOrders';
-export { default as AppNewsUpdate } from './AppNewsUpdate';
-export { default as AppNewUsers } from './AppNewUsers';
 export { default as AppTimeline } from './AppTimeline';
-export { default as AppTasks } from './AppTasks';
-export { default as AppSprayCycle } from './AppSprayCycle';
 export { default as AppEnvironmentsChart } from './AppEnvironmentsChart';
 export { default as AppEnvironmentDisplay } from './AppEnvironmentDisplay';
-export { default as AppDevices } from './AppDevices';

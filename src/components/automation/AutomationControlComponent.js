@@ -7,8 +7,8 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
-import EN2KR from '../../../utils/EN2KR';
-import formatUnit from '../../../utils/formatUnit';
+import EN2KR from '../../utils/EN2KR';
+import formatUnit from '../../utils/formatUnit';
 
 const RootStyle = styled(Card)(({ theme, backgroundColor }) => ({
   boxShadow: 'none',

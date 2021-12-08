@@ -8,5 +8,6 @@ export async function getEnvironment(label, filters) {
     },
     data: filters
   };
-  return axios.post(`${ADDRESS}/${label}`, config).then((res) => res.data);
+  const result = await axios.post(`${ADDRESS}/${label}`, config).then((res) => res.data);
+  return result;
 }

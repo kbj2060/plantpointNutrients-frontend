@@ -1,4 +1,4 @@
-import update from 'react-addons-update';
+// import update from 'react-addons-update';
 // import {loadState, saveState} from '../../components/LocalStorage/index.ts';
 // import {checkEmpty} from '@funcUtils/checkEmpty.ts';
 // import {StorageKeys} from '../../reference/constants';

@@ -1,7 +1,7 @@
 import { styled } from '@mui/material/styles';
 import { Card, Container, Grid } from '@mui/material';
 import Page from '../components/Page';
-import AppDevices from '../components/_dashboard/app/AppDevices';
+import AppDevices from '../components/control/AppDevices';
 
 export default function Control() {
   return (
