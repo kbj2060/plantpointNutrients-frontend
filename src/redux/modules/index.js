@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux';
 import Authentication from './Authentication';
 import DashboardEnvironment from './DashboardEnvironment';
-import DashboardEnvironmentHistory from './DashboardEnvironmentHistory';
+import DashboardHumidityHistory from './DashboardHumidityHistory';
+import DashboardTemperatureHistory from './DashboardTemperatureHistory';
 
 const allReducers = combineReducers({
   authentication: Authentication,
   dashboardEnvironment: DashboardEnvironment,
-  dashboardEnvironmentHistory: DashboardEnvironmentHistory
+  dashboardTemperatureHistory: DashboardTemperatureHistory,
+  dashboardHumidityHistory: DashboardHumidityHistory
 });
 
 // export type RootState = ReturnType<typeof allReducers>

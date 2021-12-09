@@ -11,3 +11,8 @@ export async function getEnvironment(label, filters) {
   const result = await axios.post(`${ADDRESS}/${label}`, config).then((res) => res.data);
   return result;
 }
+
+// export async function getEnvironmentHistory() {
+//   const result = await axios.post(`${ADDRESS}/${label}`, config).then((res) => res.data);
+//   return result;
+// }
