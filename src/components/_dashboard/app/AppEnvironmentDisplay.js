@@ -3,9 +3,13 @@ import { Icon } from '@iconify/react';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
+
 import EN2KR from '../../../utils/EN2KR';
 import formatUnit from '../../../utils/formatUnit';
 import { getEnvironment } from '../../../api/environment';
+import { store } from '../../../redux/store/index';
+import { updateDashboardEnvironment } from '../../../redux/modules/DashboardEnvironment';
+import useSubscribeEnvironmentStatus from '../../../hooks/useSubscribeEnvironmentStatus';
 
 const RootStyle = styled(Card)(({ theme, bg }) => ({
   boxShadow: 'none',
@@ -38,14 +42,14 @@ AppEnvironmentDisplay.propTypes = {
 };
 
 export default function AppEnvironmentDisplay({ label, icon, color }) {
-  const [value, setValue] = useState(0);
+  const value = useSubscribeEnvironmentStatus(label);
 
   useEffect(() => {
     const updateValue = () => {
       const filters = { limit: 1 };
       getEnvironment(label, filters).then((res) => {
         const result = res === null ? 0 : res[0].value;
-        setValue(result);
+        store.dispatch(updateDashboardEnvironment(label, result));
       });
     };
 

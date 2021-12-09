@@ -1,11 +1,10 @@
-const SAVE_DASHBOARD_ENVIRONMENT = 'SAVE_DASHBOARD_ENVIRONMENT';
+import update from 'immutability-helper';
+import { saveState } from '../../utils/localstorage';
+
 const UPDATE_DASHBOARD_ENVIRONMENT = 'UPDATE_DASHBOARD_ENVIRONMENT';
 
-export function saveDashboardEnvironment(environments) {
-  return { type: SAVE_DASHBOARD_ENVIRONMENT, environments };
-}
-export function changeDashboardEnvironment(environments) {
-  return { type: UPDATE_DASHBOARD_ENVIRONMENT, environments };
+export function updateDashboardEnvironment(label, value) {
+  return { type: UPDATE_DASHBOARD_ENVIRONMENT, label, value };
 }
 
 const initialState = {
@@ -15,10 +14,11 @@ const initialState = {
 
 function DashboardEnvironment(state = initialState, action) {
   switch (action.type) {
-    case SAVE_DASHBOARD_ENVIRONMENT:
-      return action.environments;
-    case UPDATE_DASHBOARD_ENVIRONMENT:
-      return action.environments;
+    case UPDATE_DASHBOARD_ENVIRONMENT: {
+      const updated = update(state, { [action.label]: { $set: action.value } });
+      saveState('dashboardEnvironment', updated);
+      return updated;
+    }
     default:
       return state;
   }
