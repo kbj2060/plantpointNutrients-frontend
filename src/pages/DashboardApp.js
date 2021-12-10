@@ -37,11 +37,8 @@ export default function DashboardApp() {
           <Grid item xs={12} md={4} lg={4}>
             <AppTimeline />
           </Grid>
-          <Grid item xs={12} md={4} lg={4}>
-            <AppEnvironmentsChart label="temperature" />
-          </Grid>
-          <Grid item xs={12} md={4} lg={4}>
-            <AppEnvironmentsChart label="humidity" />
+          <Grid item xs={12} md={8} lg={8}>
+            <AppEnvironmentsChart />
           </Grid>
         </Grid>
       </Container>

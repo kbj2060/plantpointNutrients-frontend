@@ -8,8 +8,8 @@ export async function getEnvironment(label, filters) {
     },
     data: filters
   };
-  const result = await axios.post(`${ADDRESS}/${label}`, config).then((res) => res.data);
-  return result;
+  const result = await axios.post(`${ADDRESS}/${label}`, config);
+  return result.data;
 }
 
 // export async function getEnvironmentHistory() {

@@ -13,18 +13,14 @@ AppEnvironmentsChart.propTypes = {
   label: PropTypes.string
 };
 
-export default function AppEnvironmentsChart({ label }) {
-  const [states, setStates] = useState({
-    name: label,
-    type: 'line',
-    data: []
-  });
+export default function AppEnvironmentsChart() {
+  const [states, setStates] = useState([]);
 
   const chartOptions = merge(BaseOptionChart(), {
     stroke: { width: [1, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
     fill: { type: ['solid'] },
-    labels: [],
+    labels: [+new Date().setHours(0, 0, 0, 0), +new Date().setHours(23, 59, 59, 59)],
     xaxis: {
       type: 'datetime'
     },
@@ -43,17 +39,34 @@ export default function AppEnvironmentsChart({ label }) {
   });
 
   useEffect(() => {
-    function updateValue(label) {
-      getEnvironment(label, { today: true }).then((res) => {
-        const result = res === null ? [] : res;
-        const series = result.map((v) => [Date.parse(v.createdAt), v.value]);
-        setStates(update(states, { data: { $set: series } }));
-      });
+    function updateData(response) {
+      return response.map((v) => [Date.parse(v.createdAt), v.value]);
     }
 
-    updateValue(label);
+    const setSeries = (data, name) => ({
+      type: 'line',
+      name,
+      data
+    });
+
+    async function updateEnvironment(label) {
+      const environment = await getEnvironment(label, { today: true }).then((res) =>
+        updateData(res)
+      );
+      const sEnvironment = await setSeries(environment, label);
+      return sEnvironment;
+    }
+
+    async function updateStates() {
+      const t = await updateEnvironment('temperature');
+      const h = await updateEnvironment('humidity');
+      console.log([t, h]);
+      setStates([t, h]);
+    }
+
+    updateStates();
     const eInterval = setInterval(() => {
-      updateValue(label);
+      updateStates();
     }, 60 * 1000);
 
     return () => {
@@ -63,9 +76,9 @@ export default function AppEnvironmentsChart({ label }) {
 
   return (
     <Card>
-      <CardHeader title="환경" subheader={label} />
+      <CardHeader title="환경" subheader="temperature & humidity" />
       <Box sx={{ p: 2, pb: 1 }} dir="ltr">
-        <ReactApexChart type="line" series={[states]} options={chartOptions} height={364} />
+        <ReactApexChart type="line" series={states} options={chartOptions} height={364} />
       </Box>
     </Card>
   );
