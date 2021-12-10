@@ -3,11 +3,12 @@ import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
 import PropTypes, { string } from 'prop-types';
 import { Card, CardHeader, Box } from '@mui/material';
-import update from 'immutability-helper';
 import moment from 'moment';
-
 import { BaseOptionChart } from '../../charts';
 import { getEnvironment } from '../../../api/environment';
+import { CHART_TIME_DELTA, ENVIRONMENTS_CHART_UPDATE_TIME } from '../../../config';
+import EN2KR from '../../../utils/EN2KR';
+import { ENVIRONMENT_SUBJECTS } from '../../../config/environments';
 
 AppEnvironmentsChart.propTypes = {
   label: PropTypes.string
@@ -20,13 +21,13 @@ export default function AppEnvironmentsChart() {
     stroke: { width: [1, 3] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
     fill: { type: ['solid'] },
-    labels: [+new Date().setHours(0, 0, 0, 0), +new Date().setHours(23, 59, 59, 59)],
     xaxis: {
       type: 'datetime'
     },
     tooltip: {
       shared: true,
       intersect: false,
+      x: { format: 'HH:mm:ss' },
       y: {
         formatter: (y) => {
           if (typeof y !== 'undefined') {
@@ -40,12 +41,12 @@ export default function AppEnvironmentsChart() {
 
   useEffect(() => {
     function updateData(response) {
-      return response.map((v) => [Date.parse(v.createdAt), v.value]);
+      return response.map((v) => [moment(v.createdAt).add(CHART_TIME_DELTA, 'h'), v.value]);
     }
 
     const setSeries = (data, name) => ({
       type: 'line',
-      name,
+      name: EN2KR[name],
       data
     });
 
@@ -60,14 +61,13 @@ export default function AppEnvironmentsChart() {
     async function updateStates() {
       const t = await updateEnvironment('temperature');
       const h = await updateEnvironment('humidity');
-      console.log([t, h]);
       setStates([t, h]);
     }
 
     updateStates();
     const eInterval = setInterval(() => {
       updateStates();
-    }, 60 * 1000);
+    }, ENVIRONMENTS_CHART_UPDATE_TIME);
 
     return () => {
       clearInterval(eInterval);
@@ -76,7 +76,7 @@ export default function AppEnvironmentsChart() {
 
   return (
     <Card>
-      <CardHeader title="환경" subheader="temperature & humidity" />
+      <CardHeader title="환경 모니터링" subheader="온도와 습도" />
       <Box sx={{ p: 2, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={states} options={chartOptions} height={364} />
       </Box>

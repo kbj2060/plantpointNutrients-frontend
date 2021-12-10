@@ -4,7 +4,8 @@ const EN2KR = {
   waterSupply: '물공급량',
   nutrientSupply: '양액공급량',
   temperature: '온도',
-  humidity: '습도'
+  humidity: '습도',
+  unknown: '알 수 없음'
 };
 
 export default EN2KR;

@@ -10,6 +10,7 @@ import { getEnvironment } from '../../../api/environment';
 import { store } from '../../../redux/store/index';
 import { updateDashboardEnvironment } from '../../../redux/modules/DashboardEnvironment';
 import useSubscribeEnvironmentStatus from '../../../hooks/useSubscribeEnvironmentStatus';
+import { ENVIRONMENTS_STATUS_UPDATE_TIME } from '../../../config';
 
 const RootStyle = styled(Card)(({ theme, bg }) => ({
   boxShadow: 'none',
@@ -56,7 +57,7 @@ export default function AppEnvironmentDisplay({ label, icon, color }) {
     updateValue();
     const eInterval = setInterval(() => {
       updateValue();
-    }, 10 * 1000);
+    }, ENVIRONMENTS_STATUS_UPDATE_TIME);
 
     return () => {
       clearInterval(eInterval);
