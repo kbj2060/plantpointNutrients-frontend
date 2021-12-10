@@ -6,9 +6,9 @@ import DashboardTemperatureHistory from './DashboardTemperatureHistory';
 
 const allReducers = combineReducers({
   authentication: Authentication,
-  dashboardEnvironment: DashboardEnvironment,
-  dashboardTemperatureHistory: DashboardTemperatureHistory,
-  dashboardHumidityHistory: DashboardHumidityHistory
+  dashboardEnvironment: DashboardEnvironment
+  // dashboardTemperatureHistory: DashboardTemperatureHistory,
+  // dashboardHumidityHistory: DashboardHumidityHistory
 });
 
 // export type RootState = ReturnType<typeof allReducers>
