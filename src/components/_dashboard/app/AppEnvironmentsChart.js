@@ -22,7 +22,12 @@ export default function AppEnvironmentsChart() {
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
     fill: { type: ['solid'] },
     xaxis: {
-      type: 'datetime'
+      type: 'datetime',
+      min: new Date().setHours(0, 0, 0, 0),
+      max: new Date().setHours(23, 59, 59, 59),
+      labels: {
+        datetimeUTC: false
+      }
     },
     tooltip: {
       shared: true,
@@ -41,7 +46,7 @@ export default function AppEnvironmentsChart() {
 
   useEffect(() => {
     function updateData(response) {
-      return response.map((v) => [moment(v.createdAt).add(CHART_TIME_DELTA, 'h'), v.value]);
+      return response.map((v) => [moment(v.createdAt), v.value]);
     }
 
     const setSeries = (data, name) => ({
