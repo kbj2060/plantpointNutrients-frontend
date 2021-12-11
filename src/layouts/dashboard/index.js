@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
 //
 import DashboardNavbar from './DashboardNavbar';
 import DashboardSidebar from './DashboardSidebar';
-
-// ----------------------------------------------------------------------
+import { getMachine } from '../../api/machine';
+import { store } from '../../redux/store/index';
+import { updateMachine } from '../../redux/modules/Machines';
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -30,11 +31,11 @@ const MainStyle = styled('div')(({ theme }) => ({
   }
 }));
 
-// ----------------------------------------------------------------------
-
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
-
+  getMachine().then((res) => {
+    store.dispatch(updateMachine(res));
+  });
   return (
     <RootStyle>
       <DashboardNavbar onOpenSidebar={() => setOpen(true)} />

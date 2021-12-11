@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import faker from 'faker';
 import PropTypes from 'prop-types';
 import { Card, Typography, CardHeader, CardContent } from '@mui/material';
 import {
@@ -13,6 +12,8 @@ import {
 
 import { getSwitch } from '../../../api/switch';
 import { fDateTime } from '../../../utils/formatTime';
+import { store } from '../../../redux/store';
+import EN2KR from '../../../utils/EN2KR';
 
 OrderItem.propTypes = {
   item: PropTypes.object,
@@ -22,21 +23,22 @@ OrderItem.propTypes = {
 function OrderItem({ item, isLast }) {
   const { status, machine_id: machineId, createdAt } = item.Switch;
   const { name: controlledBy } = item;
-  console.log(item);
+  const machinesRef = store.getState().machines;
+
   return (
     <TimelineItem>
       <TimelineSeparator>
         <TimelineDot
           sx={{
             bgcolor:
-              (status === 1 && 'primary.main') || (status === 0 && 'success.main') || 'error.main'
+              (status === 1 && 'success.main') || (status === 0 && 'error.main') || 'primary.main'
           }}
         />
         {isLast ? null : <TimelineConnector />}
       </TimelineSeparator>
       <TimelineContent>
         <Typography variant="subtitle2">
-          {machineId} {status} by {controlledBy}
+          {machinesRef[machineId]} {EN2KR[status ? 'on' : 'off']} by {controlledBy}
         </Typography>
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {fDateTime(createdAt)}
@@ -52,18 +54,9 @@ export default function AppTimeline() {
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 5 });
-      console.log(switches);
       setStates(switches);
     }
-
     updateStates();
-    const eInterval = setInterval(() => {
-      updateStates();
-    }, 60 * 1000);
-
-    return () => {
-      clearInterval(eInterval);
-    };
   }, []);
 
   return (
@@ -81,7 +74,7 @@ export default function AppTimeline() {
       <CardContent>
         <Timeline>
           {states.map((item, index) => (
-            <OrderItem key={item.title} item={item} isLast={index === states.length - 1} />
+            <OrderItem key={item.Switch.id} item={item} isLast={index === states.length - 1} />
           ))}
         </Timeline>
       </CardContent>

@@ -5,6 +5,8 @@ const EN2KR = {
   nutrientSupply: '양액공급량',
   temperature: '온도',
   humidity: '습도',
+  off: '꺼짐',
+  on: '켜짐',
   unknown: '알 수 없음'
 };
 
