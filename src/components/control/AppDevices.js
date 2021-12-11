@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react';
 import { Stack, Box, Card } from '@mui/material';
-import faker from 'faker';
+import _ from 'lodash';
 import { styled } from '@mui/material/styles';
+import faker from 'faker';
+import { getSwitch } from '../../api/switch';
+import { getMachine } from '../../api/machine';
 import PowerToggleButton from '../PowerToggleButton';
 
-const LABELS = [...Array(6)].map(() => ({ label: faker.name.lastName() }));
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
   textAlign: 'center',
@@ -14,6 +17,20 @@ const RootStyle = styled(Card)(({ theme }) => ({
 }));
 
 export default function AppDevices() {
+  const [devices, setDevices] = useState([]);
+  useEffect(() => {
+    async function updateDevices() {
+      const machines = await getMachine();
+      getSwitch({ eachLast: true }).then((res) => {
+        const result = res.map((r) => {
+          const machine = machines.find((machine) => machine.id === r.machine_id);
+          return { [machine.name]: r.status };
+        });
+        setDevices(result);
+      });
+    }
+    updateDevices();
+  }, []);
   return (
     <RootStyle>
       <Stack
@@ -24,9 +41,9 @@ export default function AppDevices() {
           p: 2
         }}
       >
-        {LABELS.map((label) => (
+        {devices.map((device) => (
           <Box
-            key={label}
+            key={Object.keys(device)[0]}
             sx={{
               px: 2,
               py: 1,
@@ -34,7 +51,7 @@ export default function AppDevices() {
               maxWidth: '50%'
             }}
           >
-            <PowerToggleButton label={label.label} />
+            <PowerToggleButton device={device} />
           </Box>
         ))}
       </Stack>

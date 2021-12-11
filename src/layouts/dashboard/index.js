@@ -33,9 +33,6 @@ const MainStyle = styled('div')(({ theme }) => ({
 
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
-  getMachine().then((res) => {
-    store.dispatch(updateMachine(res));
-  });
   return (
     <RootStyle>
       <DashboardNavbar onOpenSidebar={() => setOpen(true)} />

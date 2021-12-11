@@ -2,21 +2,17 @@ import { useState } from 'react';
 import powerIcon from '@iconify/icons-bi/power';
 import IconButton from '@mui/material/IconButton';
 import { Icon } from '@iconify/react';
-import PropTypes from 'prop-types';
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 
-PowerToggleButton.propTypes = {
-  label: PropTypes.string
-};
-
-export default function PowerToggleButton({ label }) {
-  const [selected, setSelected] = useState(false);
+export default function PowerToggleButton({ device }) {
+  const name = Object.keys(device)[0];
+  const status = Object.values(device)[0];
+  const [selected, setSelected] = useState(status);
   const theme = useTheme();
-
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
-      <Typography>{label}</Typography>
+      <Typography>{name}</Typography>
       <IconButton
         value="check"
         selected={selected}
