@@ -18,7 +18,6 @@ import { TableListHead } from '../components/table';
 import REPORTLIST from '../_mocks_/report';
 import { getReport } from '../api/report';
 import { getMachine } from '../api/machine';
-import { getSensor } from '../api/sensor';
 
 const TABLE_HEAD = [
   { id: 'level', label: '단계', alignRight: false },
@@ -47,25 +46,21 @@ export default function Reports() {
     async function updateStates() {
       const reports = await getReport({ limit: 20 });
       const machines = await getMachine();
-      const sensors = await getSensor();
       const result = reports.map((report) => {
         function classifyDevice(report) {
-          let found = {};
           if (report.machine_id) {
-            found = machines.find((machine) => machine.id === report.machine_id);
-          } else if (report.sensor_id) {
-            found = sensors.find((sensor) => sensor.id === report.sensor_id);
+            return machines.find((machine) => machine.id === report.machine_id);
           }
-          return found;
         }
+        const machine = classifyDevice(report);
+        if (machine === undefined) throw Error('Cannot find machine!!');
         return {
-          name: classifyDevice(report).name,
+          name: machine.name,
           level: report.level,
           isFixed: report.isFixed,
           createdAt: report.createdAt
         };
       });
-      console.log(result);
       setStates(result);
     }
     updateStates();

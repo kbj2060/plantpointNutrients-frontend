@@ -10,15 +10,15 @@ import CloseIcon from '@mui/icons-material/Close';
 import EN2KR from '../../utils/EN2KR';
 import formatUnit from '../../utils/formatUnit';
 
-const RootStyle = styled(Card)(({ theme, backgroundColor }) => ({
+const RootStyle = styled(Card)(({ theme, bg }) => ({
   boxShadow: 'none',
   textAlign: 'center',
   padding: theme.spacing(5, 0),
-  color: backgroundColor.darker,
-  backgroundColor: backgroundColor.lighter
+  color: bg.darker,
+  backgroundColor: bg.lighter
 }));
 
-const IconWrapperStyle = styled('div')(({ theme, backgroundColor }) => ({
+const IconWrapperStyle = styled('div')(({ theme, bg }) => ({
   margin: 'auto',
   display: 'flex',
   borderRadius: '50%',
@@ -27,30 +27,24 @@ const IconWrapperStyle = styled('div')(({ theme, backgroundColor }) => ({
   height: theme.spacing(8),
   justifyContent: 'center',
   marginBottom: theme.spacing(3),
-  color: backgroundColor.dark,
-  backgroundImage: `linear-gradient(135deg, ${alpha(backgroundColor.dark, 0)} 0%, ${alpha(
-    backgroundColor.dark,
-    0.24
-  )} 100%)`
+  color: bg.dark,
+  backgroundImage: `linear-gradient(135deg, ${alpha(bg.dark, 0)} 0%, ${alpha(bg.dark, 0.24)} 100%)`
 }));
 
-const ModalStyle = styled(Card)(({ theme, backgroundColor }) => ({
+const ModalStyle = styled(Card)(({ theme, bg }) => ({
   width: '30%',
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  color: backgroundColor.dark,
-  backgroundImage: `linear-gradient(135deg, ${alpha(backgroundColor.dark, 0)} 0%, ${alpha(
-    backgroundColor.dark,
-    0.24
-  )} 100%)`,
+  color: bg.dark,
+  backgroundImage: `linear-gradient(135deg, ${alpha(bg.dark, 0)} 0%, ${alpha(bg.dark, 0.24)} 100%)`,
   padding: theme.spacing(3, 3)
 }));
 
 AutomationControlComponent.propTypes = {
   label: PropTypes.string,
-  icon: PropTypes.node,
+  icon: PropTypes.object,
   color: PropTypes.object
 };
 
@@ -71,8 +65,8 @@ export default function AutomationControlComponent({ label, icon, color }) {
 
   return (
     <>
-      <RootStyle onClick={handleOpen} backgroundColor={color}>
-        <IconWrapperStyle backgroundColor={color}>
+      <RootStyle onClick={handleOpen} bg={color}>
+        <IconWrapperStyle bg={color}>
           <Icon icon={icon} width={24} height={24} />
         </IconWrapperStyle>
         <Typography variant="h3">
@@ -83,7 +77,7 @@ export default function AutomationControlComponent({ label, icon, color }) {
         </Typography>
       </RootStyle>
       <Modal open={open} onClose={handleClose}>
-        <ModalStyle backgroundColor={color}>
+        <ModalStyle bg={color}>
           <Typography variant="subtitle2">{EN2KR[label]}</Typography>
           <Stack direction="row">
             <Typography variant="h3" sx={{ margin: 'auto' }}>

@@ -49,12 +49,12 @@ export default function History() {
       const machines = await getMachine();
       console.log(switches, machines);
       const result = switches.map((_switch) => {
-        const mFound = machines.find((machine) => machine.id === _switch[0].machine_id);
+        const mFound = machines.find((machine) => machine.id === _switch.Switch.machine_id);
         return {
           name: mFound.name,
-          controlledBy: _switch[1],
-          status: _switch[0].status,
-          createdAt: _switch[0].createdAt
+          controlledBy: _switch.name,
+          status: _switch.Switch.status,
+          createdAt: _switch.Switch.createdAt
         };
       });
       setStates(result);

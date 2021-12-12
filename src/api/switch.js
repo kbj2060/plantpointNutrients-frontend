@@ -11,3 +11,13 @@ export async function getSwitch(filters) {
   const result = await axios.post(`${ADDRESS}/switch`, config);
   return result.data;
 }
+
+export async function postSwitch(filters) {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data: filters
+  };
+  await axios.post(`${ADDRESS}/switch/create`, config);
+}

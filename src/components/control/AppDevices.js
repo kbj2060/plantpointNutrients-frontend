@@ -24,7 +24,17 @@ export default function AppDevices() {
       getSwitch({ eachLast: true }).then((res) => {
         const result = res.map((r) => {
           const machine = machines.find((machine) => machine.id === r.machine_id);
-          return { [machine.name]: r.status };
+          if (machine === undefined) {
+            throw Error('Cannot find machine!!');
+          }
+          // controlledBy_id redux에 찾아서 바로 넣기
+          return {
+            name: machine.name,
+            status: r.status,
+            controlledBy_id: 1,
+            machine_id: machine.id,
+            section_id: machine.section_id
+          };
         });
         setDevices(result);
       });
