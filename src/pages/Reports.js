@@ -16,14 +16,14 @@ import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import { TableListHead } from '../components/table';
 import REPORTLIST from '../_mocks_/report';
+import { getReport } from '../api/report';
 import { getMachine } from '../api/machine';
 import { getSensor } from '../api/sensor';
-
 
 const TABLE_HEAD = [
   { id: 'level', label: '단계', alignRight: false },
   { id: 'name', label: '기기', alignRight: false },
-  { id: 'isFixed', label: '처리', alignRight: false },
+  { id: 'isFixed', label: '해결', alignRight: false },
   { id: 'createdAt', label: '날짜', alignRight: false }
 ];
 
@@ -42,7 +42,7 @@ export default function Reports() {
   };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - REPORTLIST.length) : 0;
-  const filteredUsers = REPORTLIST;
+
   useEffect(() => {
     async function updateStates() {
       const reports = await getReport({ limit: 20 });
@@ -50,28 +50,27 @@ export default function Reports() {
       const sensors = await getSensor();
       const result = reports.map((report) => {
         function classifyDevice(report) {
+          let found = {};
           if (report.machine_id) {
-            return machines.find((machine) => machine.id === report.machine_id);
+            found = machines.find((machine) => machine.id === report.machine_id);
+          } else if (report.sensor_id) {
+            found = sensors.find((sensor) => sensor.id === report.sensor_id);
           }
-          else if (report.sensor_id) {
-            return sensors.find((sensor) => sensor.id === report.sensor_id);
-          }
-          else {
-            return null;
-          }
+          return found;
         }
-
         return {
-          name: classifyDevice(report),
+          name: classifyDevice(report).name,
           level: report.level,
           isFixed: report.isFixed,
           createdAt: report.createdAt
         };
       });
+      console.log(result);
       setStates(result);
     }
     updateStates();
   }, []);
+
   return (
     <Page title="History">
       <Container>
@@ -80,19 +79,18 @@ export default function Reports() {
             에러 보고서
           </Typography>
         </Stack>
-
         <Card>
           <Scrollbar>
             <TableContainer sx={{ minWidth: 300 }}>
               <Table>
                 <TableListHead headLabel={TABLE_HEAD} />
                 <TableBody>
-                  {filteredUsers
+                  {states
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      const { id, level, createdAt, isFixed, name } = row;
+                    .map((row, index) => {
+                      const { level, createdAt, isFixed, name } = row;
                       return (
-                        <TableRow hover key={id} tabIndex={-1} role="checkbox">
+                        <TableRow hover key={index} tabIndex={-1} role="checkbox">
                           <TableCell align="left">
                             <Label
                               variant="filled"
@@ -111,7 +109,11 @@ export default function Reports() {
                               {name}
                             </Stack>
                           </TableCell>
-                          <TableCell align="left"> {isFixed} </TableCell>
+                          <TableCell align="left">
+                            <Label variant="ghost" color={(isFixed === 0 && 'error') || 'success'}>
+                              {(isFixed === 0 && '아니오') || '예'}
+                            </Label>
+                          </TableCell>
                           <TableCell align="left"> {createdAt} </TableCell>
                         </TableRow>
                       );

@@ -41,9 +41,9 @@ export default function AppDevices() {
           p: 2
         }}
       >
-        {devices.map((device) => (
+        {devices.map((device, index) => (
           <Box
-            key={Object.keys(device)[0]}
+            key={index}
             sx={{
               px: 2,
               py: 1,
