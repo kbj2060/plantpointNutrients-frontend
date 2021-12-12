@@ -1,8 +1,9 @@
 const EN2KR = {
-  waterCycle: '물교체시기',
-  waterSpray: '분무주기',
-  waterSupply: '물공급량',
-  nutrientSupply: '양액공급량',
+  watercycle: '물교체시기',
+  waterspray: '분무',
+  waterpump: '물공급',
+  watersupply: '물공급량',
+  nutrientsupply: '양액공급량',
   temperature: '온도',
   humidity: '습도',
   off: '꺼짐',

@@ -11,8 +11,8 @@ import {
 } from '@mui/lab';
 
 import { getSwitch } from '../../../api/switch';
+import { getMachine } from '../../../api/machine';
 import { fDateTime } from '../../../utils/formatTime';
-import { store } from '../../../redux/store';
 import EN2KR from '../../../utils/EN2KR';
 
 OrderItem.propTypes = {
@@ -21,9 +21,7 @@ OrderItem.propTypes = {
 };
 
 function OrderItem({ item, isLast }) {
-  const { status, machine_id: machineId, createdAt } = item.Switch;
-  const { name: controlledBy } = item;
-  const machinesRef = store.getState().machines;
+  const { status, name, createdAt, controlledBy } = item;
 
   return (
     <TimelineItem>
@@ -38,7 +36,7 @@ function OrderItem({ item, isLast }) {
       </TimelineSeparator>
       <TimelineContent>
         <Typography variant="subtitle2">
-          {machinesRef[machineId]} {EN2KR[status ? 'on' : 'off']} by {controlledBy}
+          {EN2KR[name]} {EN2KR[status ? 'on' : 'off']} by {controlledBy}
         </Typography>
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {fDateTime(createdAt)}
@@ -54,7 +52,17 @@ export default function AppTimeline() {
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 5 });
-      setStates(switches);
+      const machines = await getMachine();
+      const result = switches.map((_switch) => {
+        const mFound = machines.find((machine) => machine.id === _switch.Switch.machine_id);
+        return {
+          name: mFound.name,
+          controlledBy: _switch.name,
+          status: _switch.Switch.status,
+          createdAt: _switch.Switch.createdAt
+        };
+      });
+      setStates(result);
     }
     updateStates();
   }, []);
@@ -74,7 +82,7 @@ export default function AppTimeline() {
       <CardContent>
         <Timeline>
           {states.map((item, index) => (
-            <OrderItem key={item.Switch.id} item={item} isLast={index === states.length - 1} />
+            <OrderItem key={index} item={item} isLast={index === states.length - 1} />
           ))}
         </Timeline>
       </CardContent>

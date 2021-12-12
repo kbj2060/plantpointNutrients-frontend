@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Table,
@@ -17,9 +17,11 @@ import Scrollbar from '../components/Scrollbar';
 import SearchNotFound from '../components/SearchNotFound';
 import { TableListHead } from '../components/table';
 import USERLIST from '../_mocks_/user';
+import { getMachine } from '../api/machine';
+import { getSwitch } from '../api/switch';
 
 const TABLE_HEAD = [
-  { id: 'date', label: '날짜', alignRight: false },
+  { id: 'createdAt', label: '날짜', alignRight: false },
   { id: 'name', label: '기기', alignRight: false },
   { id: 'controledBy', label: '제어', alignRight: false },
   { id: 'status', label: '상태', alignRight: false }
@@ -27,9 +29,8 @@ const TABLE_HEAD = [
 
 export default function History() {
   const [page, setPage] = useState(0);
-  const [selected, setSelected] = useState([]);
-  const [filterName, setFilterName] = useState('');
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [states, setStates] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -42,11 +43,23 @@ export default function History() {
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
 
-  // const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
-  const filteredUsers = USERLIST;
-
-  const isUserNotFound = filteredUsers.length === 0;
-
+  useEffect(() => {
+    async function updateStates() {
+      const switches = await getSwitch({ limit: 20 });
+      const machines = await getMachine();
+      const result = switches.map((_switch) => {
+        const mFound = machines.find((machine) => machine.id === _switch.Switch.machine_id);
+        return {
+          name: mFound.name,
+          controlledBy: _switch.name,
+          status: _switch.Switch.status,
+          createdAt: _switch.Switch.createdAt
+        };
+      });
+      setStates(result);
+    }
+    updateStates();
+  }, []);
   return (
     <Page title="History">
       <Container>
@@ -60,34 +73,21 @@ export default function History() {
           <Scrollbar>
             <TableContainer sx={{ minWidth: 300 }}>
               <Table>
-                <TableListHead
-                  headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
-                  numSelected={selected.length}
-                />
+                <TableListHead headLabel={TABLE_HEAD} rowCount={USERLIST.length} />
                 <TableBody>
-                  {filteredUsers
+                  {states
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      console.log(row);
-                      const { id, name, date, controledBy, status } = row;
-                      const isItemSelected = selected.indexOf(name) !== -1;
+                    .map((row, index) => {
+                      const { name, createdAt, controlledBy, status } = row;
                       return (
-                        <TableRow
-                          hover
-                          key={id}
-                          tabIndex={-1}
-                          role="checkbox"
-                          selected={isItemSelected}
-                          aria-checked={isItemSelected}
-                        >
-                          <TableCell align="left">{date}</TableCell>
+                        <TableRow key={index} tabIndex={-1}>
+                          <TableCell align="left">{createdAt}</TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack direction="row" alignItems="center" spacing={2}>
                               {name}
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{controledBy}</TableCell>
+                          <TableCell align="left">{controlledBy}</TableCell>
                           <TableCell align="left">
                             <Label variant="ghost" color={(status === 0 && 'error') || 'success'}>
                               {(status === 0 && '꺼짐') || '켜짐'}
@@ -102,15 +102,6 @@ export default function History() {
                     </TableRow>
                   )}
                 </TableBody>
-                {isUserNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound searchQuery={filterName} />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
               </Table>
             </TableContainer>
           </Scrollbar>

@@ -4,6 +4,7 @@ import IconButton from '@mui/material/IconButton';
 import { Icon } from '@iconify/react';
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import EN2KR from '../utils/EN2KR';
 
 export default function PowerToggleButton({ device }) {
   const name = Object.keys(device)[0];
@@ -12,7 +13,7 @@ export default function PowerToggleButton({ device }) {
   const theme = useTheme();
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
-      <Typography>{name}</Typography>
+      <Typography>{EN2KR[name]}</Typography>
       <IconButton
         value="check"
         selected={selected}

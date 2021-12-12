@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   Table,
@@ -14,20 +14,23 @@ import {
 import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
-import SearchNotFound from '../components/SearchNotFound';
 import { TableListHead } from '../components/table';
 import REPORTLIST from '../_mocks_/report';
+import { getMachine } from '../api/machine';
+import { getSensor } from '../api/sensor';
+
 
 const TABLE_HEAD = [
   { id: 'level', label: '단계', alignRight: false },
   { id: 'name', label: '기기', alignRight: false },
-  { id: 'process', label: '처리', alignRight: false },
-  { id: 'date', label: '날짜', alignRight: false }
+  { id: 'isFixed', label: '처리', alignRight: false },
+  { id: 'createdAt', label: '날짜', alignRight: false }
 ];
 
 export default function Reports() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [states, setStates] = useState([]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -40,8 +43,35 @@ export default function Reports() {
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - REPORTLIST.length) : 0;
   const filteredUsers = REPORTLIST;
-  const isUserNotFound = filteredUsers.length === 0;
+  useEffect(() => {
+    async function updateStates() {
+      const reports = await getReport({ limit: 20 });
+      const machines = await getMachine();
+      const sensors = await getSensor();
+      const result = reports.map((report) => {
+        function classifyDevice(report) {
+          if (report.machine_id) {
+            return machines.find((machine) => machine.id === report.machine_id);
+          }
+          else if (report.sensor_id) {
+            return sensors.find((sensor) => sensor.id === report.sensor_id);
+          }
+          else {
+            return null;
+          }
+        }
 
+        return {
+          name: classifyDevice(report),
+          level: report.level,
+          isFixed: report.isFixed,
+          createdAt: report.createdAt
+        };
+      });
+      setStates(result);
+    }
+    updateStates();
+  }, []);
   return (
     <Page title="History">
       <Container>
@@ -60,7 +90,7 @@ export default function Reports() {
                   {filteredUsers
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      const { id, level, date, process, name } = row;
+                      const { id, level, createdAt, isFixed, name } = row;
                       return (
                         <TableRow hover key={id} tabIndex={-1} role="checkbox">
                           <TableCell align="left">
@@ -81,8 +111,8 @@ export default function Reports() {
                               {name}
                             </Stack>
                           </TableCell>
-                          <TableCell align="left"> {process} </TableCell>
-                          <TableCell align="left"> {date} </TableCell>
+                          <TableCell align="left"> {isFixed} </TableCell>
+                          <TableCell align="left"> {createdAt} </TableCell>
                         </TableRow>
                       );
                     })}
@@ -92,15 +122,6 @@ export default function Reports() {
                     </TableRow>
                   )}
                 </TableBody>
-                {isUserNotFound && (
-                  <TableBody>
-                    <TableRow>
-                      <TableCell align="center" colSpan={6} sx={{ py: 3 }}>
-                        <SearchNotFound />
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                )}
               </Table>
             </TableContainer>
           </Scrollbar>
