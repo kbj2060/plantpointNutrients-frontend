@@ -8,20 +8,13 @@ import EN2KR from '../utils/EN2KR';
 import { postSwitch } from '../api/switch';
 
 export default function PowerToggleButton({ device }) {
-  const {
-    name,
-    status,
-    controlledBy_id: controlledById,
-    machine_id: machineId,
-    section_id: sectionId
-  } = device;
+  const { name, status, controlledBy_id: controlledById, machine_id: machineId } = device;
   const [selected, setSelected] = useState(status);
   const theme = useTheme();
 
   function toggleSwitch(status) {
     const req = {
       status,
-      section_id: sectionId,
       machine_id: machineId,
       controlledBy_id: controlledById
     };

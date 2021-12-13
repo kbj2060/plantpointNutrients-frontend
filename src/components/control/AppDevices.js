@@ -18,6 +18,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 export default function AppDevices() {
   const [devices, setDevices] = useState([]);
+
   useEffect(() => {
     async function updateDevices() {
       const machines = await getMachine();
@@ -25,22 +26,23 @@ export default function AppDevices() {
         const result = res.map((r) => {
           const machine = machines.find((machine) => machine.id === r.machine_id);
           if (machine === undefined) {
-            throw Error('Cannot find machine!!');
+            throw Error('Cannot find machine on AppDevices Component!!');
           }
           // controlledBy_id redux에 찾아서 바로 넣기
           return {
             name: machine.name,
             status: r.status,
             controlledBy_id: 1,
-            machine_id: machine.id,
-            section_id: machine.section_id
+            machine_id: machine.id
           };
         });
         setDevices(result);
       });
     }
+
     updateDevices();
   }, []);
+
   return (
     <RootStyle>
       <Stack

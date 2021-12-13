@@ -10,7 +10,7 @@ import { getEnvironment } from '../../../api/environment';
 import { store } from '../../../redux/store/index';
 import { updateDashboardEnvironment } from '../../../redux/modules/DashboardEnvironment';
 import useSubscribeEnvironmentStatus from '../../../hooks/useSubscribeEnvironmentStatus';
-import { ENVIRONMENTS_STATUS_UPDATE_TIME } from '../../../config';
+import { ENVIRONMENTS_STATUS_UPDATE_TIME } from '../../../config/time';
 
 const RootStyle = styled(Card)(({ theme, bg }) => ({
   boxShadow: 'none',

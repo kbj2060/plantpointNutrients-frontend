@@ -12,12 +12,12 @@ export async function getSwitch(filters) {
   return result.data;
 }
 
-export async function postSwitch(filters) {
+export async function postSwitch(data) {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     },
-    data: filters
+    data
   };
   await axios.post(`${ADDRESS}/switch/create`, config);
 }

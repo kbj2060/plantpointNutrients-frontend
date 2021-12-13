@@ -6,7 +6,7 @@ import { Card, CardHeader, Box } from '@mui/material';
 import moment from 'moment';
 import { BaseOptionChart } from '../../charts';
 import { getEnvironment } from '../../../api/environment';
-import { ENVIRONMENTS_CHART_UPDATE_TIME } from '../../../config';
+import { ENVIRONMENTS_CHART_UPDATE_TIME } from '../../../config/time';
 import EN2KR from '../../../utils/EN2KR';
 
 AppEnvironmentsChart.propTypes = {
