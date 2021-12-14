@@ -1,22 +1,29 @@
 import { useState } from 'react';
 import powerIcon from '@iconify/icons-bi/power';
 import IconButton from '@mui/material/IconButton';
+import PropTypes from 'prop-types';
 import { Icon } from '@iconify/react';
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import EN2KR from '../utils/EN2KR';
 import { postSwitch } from '../api/switch';
 
+PowerToggleButton.propTypes = {
+  device: PropTypes.object
+};
+
 export default function PowerToggleButton({ device }) {
-  const { name, status, controlledBy_id: controlledById, machine_id: machineId } = device;
+  const { name, status, machine_id: machineId } = device;
   const [selected, setSelected] = useState(status);
   const theme = useTheme();
 
   function toggleSwitch(status) {
+    // controlledById redux에서 가져오기
     const req = {
+      name,
       status,
       machine_id: machineId,
-      controlledBy_id: controlledById
+      controlledBy_id: 1
     };
     postSwitch(req);
   }

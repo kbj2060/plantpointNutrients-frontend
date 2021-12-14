@@ -1,9 +1,7 @@
-import faker from 'faker';
 import PropTypes from 'prop-types';
-import { noCase } from 'change-case';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { set, sub, formatDistanceToNowStrict, isToday } from 'date-fns';
+import { formatDistanceToNowStrict } from 'date-fns';
 import { Icon } from '@iconify/react';
 import bellFill from '@iconify/icons-eva/bell-fill';
 import clockFill from '@iconify/icons-eva/clock-fill';
@@ -20,96 +18,23 @@ import {
   ListItemAvatar,
   ListItemButton
 } from '@mui/material';
-// utils
 import { mackImgNotificationAvatar } from '../../utils/mockImages';
-// components
 import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
-
-// ----------------------------------------------------------------------
-
-const NOTIFICATIONS = [
-  {
-    id: faker.datatype.uuid(),
-    title: 'Your order is placed',
-    description: 'waiting for shipping',
-    avatar: mackImgNotificationAvatar('warning'),
-    type: '',
-    createdAt: set(new Date(), { hours: 10, minutes: 30 }),
-    isToday: isToday(set(new Date(), { hours: 10, minutes: 30 }))
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: faker.name.findName(),
-    description: 'answered to your comment on the Minimal',
-    avatar: mackImgNotificationAvatar('error'),
-    type: 'friend_interactive',
-    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isToday: isToday(sub(new Date(), { days: 2, hours: 3, minutes: 30 }))
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'You have new message',
-    description: '5 unread messages',
-    avatar: mackImgNotificationAvatar('warning'),
-    type: '',
-    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isToday: isToday(sub(new Date(), { days: 2, hours: 3, minutes: 30 }))
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'You have new mail',
-    description: 'sent from Guido Padberg',
-    avatar: mackImgNotificationAvatar('info'),
-    type: '',
-    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isToday: isToday(sub(new Date(), { days: 2, hours: 3, minutes: 30 }))
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'Delivery processing',
-    description: 'Your order is being shipped',
-    avatar: mackImgNotificationAvatar('info'),
-    type: '',
-    createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
-    isToday: isToday(sub(new Date(), { days: 3, hours: 3, minutes: 30 }))
-  }
-];
+import { getReport } from '../../api/report';
+import { getMachine } from '../../api/machine';
+import { getSensor } from '../../api/sensor';
+import { fDescription, fTitle } from '../../utils/formatNotification';
 
 function renderContent(notification) {
   const title = (
     <Typography variant="subtitle2">
       {notification.title}
-      <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-        &nbsp; {noCase(notification.description)}
+      <Typography component="span" variant="body3" sx={{ color: 'text.secondary' }}>
+        &nbsp;&nbsp; {notification.description}
       </Typography>
     </Typography>
   );
-
-  if (notification.type === 'order_placed') {
-    return {
-      avatar: <img alt={notification.title} src="/static/icons/ic_notification_package.svg" />,
-      title
-    };
-  }
-  if (notification.type === 'order_shipped') {
-    return {
-      avatar: <img alt={notification.title} src="/static/icons/ic_notification_shipping.svg" />,
-      title
-    };
-  }
-  if (notification.type === 'mail') {
-    return {
-      avatar: <img alt={notification.title} src="/static/icons/ic_notification_mail.svg" />,
-      title
-    };
-  }
-  if (notification.type === 'chat_message') {
-    return {
-      avatar: <img alt={notification.title} src="/static/icons/ic_notification_chat.svg" />,
-      title
-    };
-  }
   return {
     avatar: <img alt={notification.title} src={notification.avatar} />,
     title
@@ -164,8 +89,8 @@ function NotificationItem({ notification }) {
 export default function NotificationsPopover() {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
-  const [notifications, setNotifications] = useState(NOTIFICATIONS);
-  const totalIsToday = notifications.filter((item) => item.isToday === true).length;
+  const [notifications, setNotifications] = useState([]);
+  const totalIsToday = notifications.length;
 
   const handleOpen = () => {
     setOpen(true);
@@ -175,6 +100,32 @@ export default function NotificationsPopover() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    async function updateNotifications() {
+      const reports = await getReport({ today: true });
+      const machines = await getMachine();
+      const sensors = await getSensor();
+      const result = reports.map((r) => {
+        let subject = null;
+        if (r.machine_id !== null) {
+          subject = machines.find((machine) => machine.id === r.machine_id).name;
+        }
+        if (r.sensor_id !== null) {
+          subject = sensors.find((sensor) => sensor.id === r.sensor_id).name;
+        }
+        if (subject === null) throw Error('Cannot find subject!!');
+        return {
+          id: r.id,
+          avatar: mackImgNotificationAvatar(r.level),
+          title: fTitle(r.level),
+          description: fDescription(subject, r.level),
+          createdAt: r.createdAt
+        };
+      });
+      setNotifications(result);
+    }
+    updateNotifications();
+  }, []);
   return (
     <>
       <IconButton

@@ -1,5 +1,4 @@
-import { styled } from '@mui/material/styles';
-import { Card, Container, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import Page from '../components/Page';
 import AppDevices from '../components/control/AppDevices';
 

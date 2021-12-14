@@ -1,5 +1,4 @@
 // material
-import { useTheme } from '@emotion/react';
 import { Grid, Container } from '@mui/material';
 import { EnvironmentConfig } from '../config/environments';
 import Page from '../components/Page';
@@ -15,7 +14,7 @@ export default function DashboardApp() {
       <Container maxWidth={false}>
         <Grid container spacing={2}>
           {new EnvironmentConfig().config.map((c) => (
-            <Grid item xs={6} sm={6} md={6}>
+            <Grid key={c.label} item xs={6} sm={6} md={6}>
               <AppEnvironmentDisplay label={c.label} icon={c.icon} color={c.color} />
             </Grid>
           ))}

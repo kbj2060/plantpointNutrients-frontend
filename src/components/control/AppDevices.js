@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Stack, Box, Card } from '@mui/material';
-import _ from 'lodash';
 import { styled } from '@mui/material/styles';
-import faker from 'faker';
 import { getSwitch } from '../../api/switch';
 import { getMachine } from '../../api/machine';
 import PowerToggleButton from '../PowerToggleButton';
@@ -22,24 +20,17 @@ export default function AppDevices() {
   useEffect(() => {
     async function updateDevices() {
       const machines = await getMachine();
-      getSwitch({ eachLast: true }).then((res) => {
-        const result = res.map((r) => {
-          const machine = machines.find((machine) => machine.id === r.machine_id);
-          if (machine === undefined) {
-            throw Error('Cannot find machine on AppDevices Component!!');
-          }
-          // controlledBy_id redux에 찾아서 바로 넣기
-          return {
-            name: machine.name,
-            status: r.status,
-            controlledBy_id: 1,
-            machine_id: machine.id
-          };
-        });
-        setDevices(result);
+      const switches = await getSwitch({ eachLast: true });
+      const result = machines.map((dm) => {
+        const foundMachine = switches.find((s) => dm.id === s.machine_id);
+        return {
+          name: dm.name,
+          status: foundMachine === undefined ? false : foundMachine.status,
+          machine_id: dm.id
+        };
       });
+      setDevices(result);
     }
-
     updateDevices();
   }, []);
 

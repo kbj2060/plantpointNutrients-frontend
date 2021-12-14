@@ -14,17 +14,17 @@ import {
 import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
-import SearchNotFound from '../components/SearchNotFound';
 import { TableListHead } from '../components/table';
-import USERLIST from '../_mocks_/user';
 import { getMachine } from '../api/machine';
 import { getSwitch } from '../api/switch';
+import EN2KR from '../utils/EN2KR';
+import { fDateTime } from '../utils/formatTime';
 
 const TABLE_HEAD = [
-  { id: 'createdAt', label: '날짜', alignRight: false },
   { id: 'name', label: '기기', alignRight: false },
   { id: 'controledBy', label: '제어', alignRight: false },
-  { id: 'status', label: '상태', alignRight: false }
+  { id: 'status', label: '상태', alignRight: false },
+  { id: 'createdAt', label: '날짜', alignRight: false }
 ];
 
 export default function History() {
@@ -41,13 +41,12 @@ export default function History() {
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - states.length) : 0;
 
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 20 });
       const machines = await getMachine();
-      console.log(switches, machines);
       const result = switches.map((_switch) => {
         const mFound = machines.find((machine) => machine.id === _switch.Switch.machine_id);
         return {
@@ -74,7 +73,7 @@ export default function History() {
           <Scrollbar>
             <TableContainer sx={{ minWidth: 300 }}>
               <Table>
-                <TableListHead headLabel={TABLE_HEAD} rowCount={USERLIST.length} />
+                <TableListHead headLabel={TABLE_HEAD} rowCount={states.length} />
                 <TableBody>
                   {states
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -82,18 +81,18 @@ export default function History() {
                       const { name, createdAt, controlledBy, status } = row;
                       return (
                         <TableRow key={index} tabIndex={-1}>
-                          <TableCell align="left">{createdAt}</TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                              {name}
+                            <Stack justifyContent="center" alignItems="center" direction="row">
+                              {EN2KR[name]}
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">{controlledBy}</TableCell>
-                          <TableCell align="left">
+                          <TableCell align="center">{controlledBy}</TableCell>
+                          <TableCell align="center">
                             <Label variant="ghost" color={(status === 0 && 'error') || 'success'}>
                               {(status === 0 && '꺼짐') || '켜짐'}
                             </Label>
                           </TableCell>
+                          <TableCell align="center">{fDateTime(createdAt)}</TableCell>
                         </TableRow>
                       );
                     })}
@@ -110,7 +109,7 @@ export default function History() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={states.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

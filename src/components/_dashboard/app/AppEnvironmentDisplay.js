@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import { alpha, styled } from '@mui/material/styles';
 import { Card, Typography } from '@mui/material';
@@ -53,7 +53,6 @@ export default function AppEnvironmentDisplay({ label, icon, color }) {
         store.dispatch(updateDashboardEnvironment(label, result));
       });
     };
-
     updateValue();
     const eInterval = setInterval(() => {
       updateValue();
@@ -62,7 +61,7 @@ export default function AppEnvironmentDisplay({ label, icon, color }) {
     return () => {
       clearInterval(eInterval);
     };
-  }, []);
+  }, [label]);
 
   return (
     <RootStyle bg={color}>

@@ -1,17 +1,12 @@
 import { useEffect, useState } from 'react';
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
-import PropTypes from 'prop-types';
 import { Card, CardHeader, Box } from '@mui/material';
 import moment from 'moment';
 import { BaseOptionChart } from '../../charts';
 import { getEnvironment } from '../../../api/environment';
 import { ENVIRONMENTS_CHART_UPDATE_TIME } from '../../../config/time';
 import EN2KR from '../../../utils/EN2KR';
-
-AppEnvironmentsChart.propTypes = {
-  label: PropTypes.string
-};
 
 export default function AppEnvironmentsChart() {
   const [states, setStates] = useState([]);

@@ -15,9 +15,11 @@ import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import { TableListHead } from '../components/table';
-import REPORTLIST from '../_mocks_/report';
 import { getReport } from '../api/report';
 import { getMachine } from '../api/machine';
+import EN2KR from '../utils/EN2KR';
+import { getSensor } from '../api/sensor';
+import { fDateTime } from '../utils/formatTime';
 
 const TABLE_HEAD = [
   { id: 'level', label: '단계', alignRight: false },
@@ -40,22 +42,27 @@ export default function Reports() {
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - REPORTLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - states.length) : 0;
 
   useEffect(() => {
     async function updateStates() {
       const reports = await getReport({ limit: 20 });
       const machines = await getMachine();
+      const sensors = await getSensor();
       const result = reports.map((report) => {
         function classifyDevice(report) {
           if (report.machine_id) {
             return machines.find((machine) => machine.id === report.machine_id);
           }
+          if (report.sensor_id) {
+            return sensors.find((sensor) => sensor.id === report.sensor_id);
+          }
+          return undefined;
         }
-        const machine = classifyDevice(report);
-        if (machine === undefined) throw Error('Cannot find machine!!');
+        const subject = classifyDevice(report);
+        if (subject === undefined) throw Error('Cannot find report subject!!');
         return {
-          name: machine.name,
+          name: subject.name,
           level: report.level,
           isFixed: report.isFixed,
           createdAt: report.createdAt
@@ -86,7 +93,7 @@ export default function Reports() {
                       const { level, createdAt, isFixed, name } = row;
                       return (
                         <TableRow hover key={index} tabIndex={-1} role="checkbox">
-                          <TableCell align="left">
+                          <TableCell align="center">
                             <Label
                               variant="filled"
                               color={
@@ -100,16 +107,16 @@ export default function Reports() {
                             </Label>
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
-                            <Stack direction="row" alignItems="center" spacing={2}>
-                              {name}
+                            <Stack justifyContent="center" alignItems="center" direction="row">
+                              {EN2KR[name]}
                             </Stack>
                           </TableCell>
-                          <TableCell align="left">
+                          <TableCell align="center">
                             <Label variant="ghost" color={(isFixed === 0 && 'error') || 'success'}>
                               {(isFixed === 0 && '아니오') || '예'}
                             </Label>
                           </TableCell>
-                          <TableCell align="left"> {createdAt} </TableCell>
+                          <TableCell align="center"> {fDateTime(createdAt)} </TableCell>
                         </TableRow>
                       );
                     })}
@@ -126,7 +133,7 @@ export default function Reports() {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={REPORTLIST.length}
+            count={states.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
