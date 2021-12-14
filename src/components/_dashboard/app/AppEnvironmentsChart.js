@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { merge } from 'lodash';
 import ReactApexChart from 'react-apexcharts';
-import PropTypes, { string } from 'prop-types';
+import PropTypes from 'prop-types';
 import { Card, CardHeader, Box } from '@mui/material';
 import moment from 'moment';
 import { BaseOptionChart } from '../../charts';

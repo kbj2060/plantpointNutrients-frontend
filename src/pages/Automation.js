@@ -1,8 +1,3 @@
-import bxWater from '@iconify/icons-bx/bx-water';
-import cycleIcon from '@iconify/icons-entypo/cycle';
-import sprayIcon from '@iconify/icons-mdi/spray';
-import bottleIcon from '@iconify/icons-tabler/bottle';
-
 import { Container, Grid, Typography } from '@mui/material';
 import { useTheme } from '@emotion/react';
 import Page from '../components/Page';
@@ -10,9 +5,6 @@ import { AutomationControlComponent } from '../components/automation';
 import { AutomationConfig } from '../config/automation';
 
 export default function Automation() {
-  const theme = useTheme();
-  console.log(new AutomationConfig().config);
-  console.log(bxWater.body);
   return (
     <Page title="Automation">
       <Container>
