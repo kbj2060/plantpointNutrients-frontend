@@ -1,5 +1,5 @@
 const EN2KR = {
-  waterspray: '분무',
+  waterspray: '분무주기',
   waterpump: '물공급',
   valve_1: '1층밸브',
   valve_2: '2층밸브',

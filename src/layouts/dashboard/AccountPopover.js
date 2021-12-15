@@ -76,7 +76,7 @@ export default function AccountPopover() {
         </Box>
         <Divider sx={{ my: 1 }} />
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullWidth color="inherit" variant="outlined">
+          <Button fullwidth color="inherit" variant="outlined">
             Logout
           </Button>
         </Box>

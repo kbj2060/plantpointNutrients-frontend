@@ -64,7 +64,7 @@ export default function Reports() {
         return {
           name: subject.name,
           level: report.level,
-          isFixed: report.isFixed,
+          isFixed: Number(report.isFixed),
           createdAt: report.createdAt
         };
       });

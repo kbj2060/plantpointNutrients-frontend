@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import PropTypes from 'prop-types';
 import { alpha, styled } from '@mui/material/styles';
@@ -9,6 +9,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import EN2KR from '../../utils/EN2KR';
 import formatUnit from '../../utils/formatUnit';
+import { getAutomation, saveAutomation } from '../../api/automation';
 
 const RootStyle = styled(Card)(({ theme, bg }) => ({
   boxShadow: 'none',
@@ -50,19 +51,32 @@ AutomationControlComponent.propTypes = {
 
 export default function AutomationControlComponent({ label, icon, color }) {
   const [open, setOpen] = useState(false);
-  const [amount, setAmount] = useState(10);
+  const [amount, setAmount] = useState(0);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const handleAmountUp = () => setAmount(amount + 1);
   const handleAmountDown = () => amount > 0 && setAmount(amount - 1);
   const handleOK = () => {
+    saveAutomation(label, amount);
     handleClose();
   };
   const handleCancel = () => {
     handleClose();
   };
 
+  useEffect(() => {
+    async function updateStates() {
+      const automation = (await getAutomation(label, { limit: 1 }))[0];
+      if (automation === undefined) {
+        setAmount(0);
+      } else {
+        const amount = automation.quantity === undefined ? automation.period : automation.quantity;
+        setAmount(amount);
+      }
+    }
+    updateStates();
+  }, []);
   return (
     <>
       <RootStyle onClick={handleOpen} bg={color}>
