@@ -106,14 +106,14 @@ export default function NotificationsPopover() {
       const machines = await getMachine();
       const sensors = await getSensor();
       const result = reports.map((r) => {
-        let subject = null;
+        let subject = 'default_subject';
         if (r.machine_id !== null) {
           subject = machines.find((machine) => machine.id === r.machine_id).name;
         }
         if (r.sensor_id !== null) {
           subject = sensors.find((sensor) => sensor.id === r.sensor_id).name;
         }
-        if (subject === null) throw Error('Cannot find subject!!');
+        console.log(subject);
         return {
           id: r.id,
           avatar: mackImgNotificationAvatar(r.level),

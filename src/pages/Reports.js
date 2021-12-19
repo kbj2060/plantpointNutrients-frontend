@@ -57,10 +57,9 @@ export default function Reports() {
           if (report.sensor_id) {
             return sensors.find((sensor) => sensor.id === report.sensor_id);
           }
-          return undefined;
+          return { name: 'default_subject' };
         }
         const subject = classifyDevice(report);
-        if (subject === undefined) throw Error('Cannot find report subject!!');
         return {
           name: subject.name,
           level: report.level,
