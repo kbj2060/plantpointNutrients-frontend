@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -16,8 +17,7 @@ import {
   FormControlLabel
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
-
-// ----------------------------------------------------------------------
+import { login } from '../../../api/auth';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -35,7 +35,8 @@ export default function LoginForm() {
       remember: true
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
+    onSubmit: (info) => {
+      login(info);
       navigate('/dashboard', { replace: true });
     }
   });
