@@ -41,43 +41,49 @@ const ContentStyle = styled('div')(({ theme }) => ({
 
 export default function Login() {
   return (
-    <RootStyle title="Login | Minimal-UI">
-      <AuthLayout>
+    <RootStyle title="로그인">
+      {/* <AuthLayout>
         Don’t have an account? &nbsp;
         <Link underline="none" variant="subtitle2" component={RouterLink} to="/register">
           Get started
         </Link>
-      </AuthLayout>
+      </AuthLayout> */}
 
-      <MHidden width="mdDown">
+      {/* <MHidden width="mdDown">
         <SectionStyle>
           <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-            Hi, Welcome Back
+            PLANTPOINT 에
+            <br /> 오신 것을 환영합니다.
           </Typography>
           <img src="/static/illustrations/illustration_login.png" alt="login" />
         </SectionStyle>
-      </MHidden>
+      </MHidden> */}
 
       <Container maxWidth="sm">
         <ContentStyle>
-          <Stack sx={{ mb: 5 }}>
+          {/* <Stack sx={{ mb: 5 }}>
             <Typography variant="h4" gutterBottom>
               Sign in to Minimal
             </Typography>
             <Typography sx={{ color: 'text.secondary' }}>Enter your details below.</Typography>
           </Stack>
-          <AuthSocial />
-
+          <AuthSocial /> */}
+          <img
+            style={{ margin: '0 auto', paddingBottom: '10%' }}
+            width="50%"
+            src="/static/illustrations/illustration_login.png"
+            alt="login"
+          />
           <LoginForm />
 
-          <MHidden width="smUp">
+          {/* <MHidden width="smUp">
             <Typography variant="body2" align="center" sx={{ mt: 3 }}>
               Don’t have an account?&nbsp;
               <Link variant="subtitle2" component={RouterLink} to="register">
                 Get started
               </Link>
             </Typography>
-          </MHidden>
+          </MHidden> */}
         </ContentStyle>
       </Container>
     </RootStyle>
