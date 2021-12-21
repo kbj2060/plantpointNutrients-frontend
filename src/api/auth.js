@@ -8,5 +8,15 @@ export async function login(data) {
     },
     data
   };
-  await axios.post(`${ADDRESS}/login`, config);
+  return axios.post(`${ADDRESS}/login`, config);
+}
+
+export async function register(data) {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    data
+  };
+  return axios.post(`${ADDRESS}/register`, config);
 }

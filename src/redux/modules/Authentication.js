@@ -1,17 +1,23 @@
-// import update from 'react-addons-update';
-// import {loadState, saveState} from '../../components/LocalStorage/index.ts';
+import update from 'react-addons-update';
+import { saveState, loadState } from '../../utils/localstorage';
 // import {checkEmpty} from '@funcUtils/checkEmpty.ts';
 // import {StorageKeys} from '../../reference/constants';
 
 export const AUTH_INIT = 'AUTH_INIT';
 export const AUTH_LOGIN_SUCCESS = 'AUTH_LOGIN_SUCCESS';
+export const RESTORE_LOGIN_INFO = 'RESTORE_LOGIN_INFO';
 export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 
-export const loginSuccess = (username, token) => ({
+export const loginSuccess = (email, authorization) => ({
   type: AUTH_LOGIN_SUCCESS,
-  username,
-  token
+  email,
+  authorization
+});
+
+export const restoreLoginInfo = (info) => ({
+  type: RESTORE_LOGIN_INFO,
+  info
 });
 
 export const loginFailure = () => ({
@@ -33,18 +39,37 @@ const initialState = {
   accessToken: ''
 };
 
-function Authentication(state, action) {
+function Authentication(state = initialState, action) {
   switch (action.type) {
     case AUTH_INIT:
       return initialState;
-    case AUTH_LOGIN_SUCCESS:
-      return initialState;
+    case AUTH_LOGIN_SUCCESS: {
+      const successUpdated = update(state, {
+        login: {
+          status: { $set: 'SUCCESS' }
+        },
+        status: {
+          isLoggedIn: { $set: true },
+          currentUser: { $set: action.email }
+        },
+        accessToken: { $set: action.authorization }
+      });
+      saveState('authentication', successUpdated);
+      return successUpdated;
+    }
+    case RESTORE_LOGIN_INFO: {
+      return action.info;
+    }
     case AUTH_LOGIN_FAILURE:
       return initialState;
     case LOGOUT:
       return initialState;
     default:
-      return initialState;
+      try {
+        return !loadState('authentication') ? state : loadState('authentication');
+      } catch (e) {
+        return initialState;
+      }
   }
 }
 

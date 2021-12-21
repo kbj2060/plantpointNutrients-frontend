@@ -76,7 +76,7 @@ export default function AutomationControlComponent({ label, icon, color }) {
       }
     }
     updateStates();
-  }, []);
+  }, [label]);
   return (
     <>
       <RootStyle onClick={handleOpen} bg={color}>

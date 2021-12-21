@@ -1,12 +1,11 @@
-// material
 import { Grid, Container } from '@mui/material';
 import { EnvironmentConfig } from '../config/environments';
-import Page from '../components/Page';
 import {
   AppEnvironmentDisplay,
   AppTimeline,
   AppEnvironmentsChart
 } from '../components/_dashboard/app';
+import Page from '../components/Page';
 
 export default function DashboardApp() {
   return (

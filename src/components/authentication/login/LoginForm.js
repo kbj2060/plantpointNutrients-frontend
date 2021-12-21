@@ -1,4 +1,3 @@
-import axios from 'axios';
 import * as Yup from 'yup';
 import { useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
@@ -18,6 +17,8 @@ import {
 } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { login } from '../../../api/auth';
+import { store } from '../../../redux/store';
+import { loginSuccess } from '../../../redux/modules/Authentication';
 
 export default function LoginForm() {
   const navigate = useNavigate();
@@ -36,7 +37,12 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: (info) => {
-      login(info);
+      login(info).then(({ data }) => {
+        if (data) {
+          const { email, authorization } = data;
+          store.dispatch(loginSuccess(email, authorization));
+        }
+      });
       navigate('/dashboard', { replace: true });
     }
   });
