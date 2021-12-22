@@ -106,7 +106,7 @@ export default function NotificationsPopover() {
       const machines = await getMachine();
       const sensors = await getSensor();
       const result = reports.map((r) => {
-        let subject = 'default_subject';
+        let subject = 'algorithm';
         if (r.machine_id !== null) {
           subject = machines.find((machine) => machine.id === r.machine_id).name;
         }

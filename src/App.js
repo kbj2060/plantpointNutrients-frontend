@@ -1,13 +1,15 @@
+import axios from 'axios';
 import Router from './routes';
-// theme
 import ThemeConfig from './theme';
 import GlobalStyles from './theme/globalStyles';
-// components
 import ScrollToTop from './components/ScrollToTop';
 import { BaseOptionChartStyle } from './components/charts/BaseOptionChart';
+import { store } from './redux/store/index';
 
 export default function App() {
-  // axios.defaults.headers.common['Authorization'] = `Bearer ${getReduxData('authentication')['accessToken'] || ""}`;
+  axios.defaults.headers.common.Authorization = `Bearer ${
+    store.getState().authentication.accessToken || ''
+  }`;
 
   return (
     <ThemeConfig>

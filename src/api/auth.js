@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { URLS } from './urls';
 
 export async function login(data) {
   const config = {
@@ -8,7 +8,7 @@ export async function login(data) {
     },
     data
   };
-  return axios.post(`${ADDRESS}/login`, config);
+  return axios.post(URLS.LOGIN, config);
 }
 
 export async function register(data) {
@@ -18,5 +18,5 @@ export async function register(data) {
     },
     data
   };
-  return axios.post(`${ADDRESS}/register`, config);
+  return axios.post(URLS.REGISTER, config);
 }

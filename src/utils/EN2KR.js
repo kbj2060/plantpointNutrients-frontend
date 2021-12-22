@@ -17,7 +17,7 @@ const EN2KR = {
   humidity: '습도',
   off: '꺼짐',
   on: '켜짐',
-  default_subject: '알고리즘',
+  algorithm: '알고리즘',
   unknown: '알 수 없음'
 };
 

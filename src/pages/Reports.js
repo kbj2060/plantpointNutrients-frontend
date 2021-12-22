@@ -57,7 +57,7 @@ export default function Reports() {
           if (report.sensor_id) {
             return sensors.find((sensor) => sensor.id === report.sensor_id);
           }
-          return { name: 'default_subject' };
+          return { name: 'algorithm' };
         }
         const subject = classifyDevice(report);
         return {

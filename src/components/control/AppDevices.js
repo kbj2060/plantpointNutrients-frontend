@@ -23,9 +23,14 @@ export default function AppDevices() {
       const switches = await getSwitch({ eachLast: true });
       const result = machines.map((dm) => {
         const foundMachine = switches.find((s) => dm.id === s.machine_id);
+        if (foundMachine === undefined) {
+          // lv3 Report created thr axios post
+          // turn off the device ( axios post off )
+          console.warn('Switch data fit into machine is not existed!');
+        }
         return {
           name: dm.name,
-          status: foundMachine === undefined ? false : foundMachine.status,
+          status: foundMachine === undefined ? 0 : Number(foundMachine.status),
           machine_id: dm.id
         };
       });

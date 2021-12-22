@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { URLS } from './urls';
 
 export async function getReport(filters) {
   const config = {
@@ -8,6 +8,6 @@ export async function getReport(filters) {
     },
     data: filters
   };
-  const result = await axios.post(`${ADDRESS}/report`, config);
+  const result = await axios.post(URLS.GET_REPORT, config);
   return result.data;
 }

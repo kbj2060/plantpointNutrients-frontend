@@ -9,9 +9,9 @@ export const RESTORE_LOGIN_INFO = 'RESTORE_LOGIN_INFO';
 export const AUTH_LOGIN_FAILURE = 'AUTH_LOGIN_FAILURE';
 export const LOGOUT = 'LOGOUT';
 
-export const loginSuccess = (email, authorization) => ({
+export const loginSuccess = (name, authorization) => ({
   type: AUTH_LOGIN_SUCCESS,
-  email,
+  name,
   authorization
 });
 
@@ -50,7 +50,7 @@ function Authentication(state = initialState, action) {
         },
         status: {
           isLoggedIn: { $set: true },
-          currentUser: { $set: action.email }
+          currentUser: { $set: action.name }
         },
         accessToken: { $set: action.authorization }
       });

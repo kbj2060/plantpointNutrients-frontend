@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { URLS } from './urls';
 
 export async function getSensor(filters) {
   const config = {
@@ -8,6 +8,6 @@ export async function getSensor(filters) {
     },
     data: filters
   };
-  const result = await axios.get(`${ADDRESS}/sensor`, config);
+  const result = await axios.get(URLS.GET_SENSOR, config);
   return result.data;
 }

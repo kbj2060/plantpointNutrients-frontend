@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { URLS } from './urls';
 
 export async function getSwitch(filters) {
   const config = {
@@ -8,7 +8,7 @@ export async function getSwitch(filters) {
     },
     data: filters
   };
-  const result = await axios.post(`${ADDRESS}/switch`, config);
+  const result = await axios.post(URLS.GET_SWITCH, config);
   return result.data;
 }
 
@@ -19,5 +19,5 @@ export async function postSwitch(data) {
     },
     data
   };
-  await axios.post(`${ADDRESS}/switch/create`, config);
+  await axios.post(URLS.CREATE_SWITCH, config);
 }

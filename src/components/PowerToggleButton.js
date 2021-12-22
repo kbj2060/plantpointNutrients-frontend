@@ -7,6 +7,7 @@ import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import EN2KR from '../utils/EN2KR';
 import { postSwitch } from '../api/switch';
+import { store } from '../redux/store/index';
 
 PowerToggleButton.propTypes = {
   device: PropTypes.object
@@ -23,7 +24,7 @@ export default function PowerToggleButton({ device }) {
       name,
       status,
       machine_id: machineId,
-      controlledBy_id: 1
+      controlledBy: store.getState().authentication.status.currentUser
     };
     postSwitch(req);
   }

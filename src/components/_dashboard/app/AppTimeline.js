@@ -52,16 +52,12 @@ export default function AppTimeline() {
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 5 });
-      const machines = await getMachine();
-      const result = switches.map((_switch) => {
-        const mFound = machines.find((machine) => machine.id === _switch.Switch.machine_id);
-        return {
-          name: mFound.name,
-          controlledBy: _switch.name,
-          status: _switch.Switch.status,
-          createdAt: _switch.Switch.createdAt
-        };
-      });
+      const result = switches.map((_switch) => ({
+        name: _switch[2],
+        controlledBy: _switch[1],
+        status: Number(_switch[0].status),
+        createdAt: _switch[0].createdAt
+      }));
       setStates(result);
     }
     updateStates();

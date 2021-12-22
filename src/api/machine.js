@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { URLS } from './urls';
 
 export async function getMachine(filters) {
   const config = {
@@ -8,6 +8,6 @@ export async function getMachine(filters) {
     },
     data: filters
   };
-  const result = await axios.get(`${ADDRESS}/machines`, config);
+  const result = await axios.get(URLS.GET_MACHINE, config);
   return result.data;
 }

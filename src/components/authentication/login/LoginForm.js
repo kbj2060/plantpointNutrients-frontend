@@ -39,8 +39,8 @@ export default function LoginForm() {
     onSubmit: (info) => {
       login(info).then(({ data }) => {
         if (data) {
-          const { email, authorization } = data;
-          store.dispatch(loginSuccess(email, authorization));
+          const { name, authorization } = data;
+          store.dispatch(loginSuccess(name, authorization));
         }
       });
       navigate('/dashboard', { replace: true });
