@@ -11,7 +11,7 @@ import NavSection from '../../components/NavSection';
 import { MHidden } from '../../components/@material-extend';
 //
 import sidebarConfig from './SidebarConfig';
-import account from '../../_mocks_/account';
+import { store } from '../../redux/store';
 
 // ----------------------------------------------------------------------
 
@@ -41,6 +41,7 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
+  const username = store.getState().authentication.status.currentUser;
 
   useEffect(() => {
     if (isOpenSidebar) {
@@ -64,14 +65,14 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
 
       <Box sx={{ mb: 5, mx: 2.5 }}>
         <AccountStyle>
-          <Avatar src={account.photoURL} alt="photoURL" />
+          <Avatar src="/static/mock-images/avatars/avatar_default.png" alt="photoURL" />
           <Box sx={{ ml: 2 }}>
             <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-              {account.displayName}
+              {username}
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {/* <Typography variant="body2" sx={{ color: 'text.secondary' }}>
               {account.role}
-            </Typography>
+            </Typography> */}
           </Box>
         </AccountStyle>
       </Box>
@@ -103,7 +104,7 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
               PLANTPOINT
             </Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {account.email}
+              kbj2060@naver.com
             </Typography>
           </Box>
           <Button fullWidth target="_blank" variant="contained">

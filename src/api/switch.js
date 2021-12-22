@@ -19,5 +19,5 @@ export async function postSwitch(data) {
     },
     data
   };
-  await axios.post(URLS.CREATE_SWITCH, config);
+  return axios.post(URLS.CREATE_SWITCH, config);
 }

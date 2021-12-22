@@ -46,16 +46,15 @@ export default function History() {
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 20 });
-      const machines = await getMachine();
-      const result = switches.map((_switch) => {
-        const mFound = machines.find((machine) => machine.id === _switch.Switch.machine_id);
-        return {
-          name: mFound.name,
-          controlledBy: _switch.name,
-          status: _switch.Switch.status,
-          createdAt: _switch.Switch.createdAt
-        };
-      });
+      if (switches.length === 0) {
+        // report lv2 : machine_id, user_id are not fit
+      }
+      const result = switches.map((_switch) => ({
+        name: _switch.machinename,
+        controlledBy: _switch.username,
+        status: Number(_switch.status),
+        createdAt: _switch.createdAt
+      }));
       setStates(result);
     }
     updateStates();

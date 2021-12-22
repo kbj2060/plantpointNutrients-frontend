@@ -36,7 +36,7 @@ function OrderItem({ item, isLast }) {
       </TimelineSeparator>
       <TimelineContent>
         <Typography variant="subtitle2">
-          {EN2KR[name]} {EN2KR[status ? 'on' : 'off']} by {controlledBy}
+          {EN2KR[name]} {EN2KR[Number(status) ? 'on' : 'off']} by {controlledBy}
         </Typography>
         <Typography variant="caption" sx={{ color: 'text.secondary' }}>
           {fDateTime(createdAt)}
@@ -52,11 +52,14 @@ export default function AppTimeline() {
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 5 });
+      if (switches.length === 0) {
+        // report lv2 : machine_id, user_id are not fit
+      }
       const result = switches.map((_switch) => ({
-        name: _switch[2],
-        controlledBy: _switch[1],
-        status: Number(_switch[0].status),
-        createdAt: _switch[0].createdAt
+        name: _switch.machinename,
+        controlledBy: _switch.username,
+        status: Number(_switch.status),
+        createdAt: _switch.createdAt
       }));
       setStates(result);
     }

@@ -19,14 +19,18 @@ export default function PowerToggleButton({ device }) {
   const theme = useTheme();
 
   function toggleSwitch(status) {
-    // controlledById redux에서 가져오기
     const req = {
       name,
       status,
       machine_id: machineId,
       controlledBy: store.getState().authentication.status.currentUser
     };
-    postSwitch(req);
+    postSwitch(req).then((res) => {
+      if (res.data === null) {
+        // lv3 report and Logout
+        console.warn('user not found');
+      }
+    });
   }
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
