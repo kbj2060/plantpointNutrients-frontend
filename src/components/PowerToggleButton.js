@@ -6,8 +6,9 @@ import { Icon } from '@iconify/react';
 import { Stack, Typography } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import EN2KR from '../utils/EN2KR';
-import { postSwitch } from '../api/switch';
+import { createSwitch } from '../api/switch';
 import { store } from '../redux/store/index';
+import { createReport } from '../api/report';
 
 PowerToggleButton.propTypes = {
   device: PropTypes.object
@@ -25,10 +26,12 @@ export default function PowerToggleButton({ device }) {
       machine_id: machineId,
       controlledBy: store.getState().authentication.status.currentUser
     };
-    postSwitch(req).then((res) => {
+    createSwitch(req).then((res) => {
       if (res.data === null) {
-        // lv3 report and Logout
-        console.warn('user not found');
+        createReport({
+          problem: 'User Not Found in PowerToggleButton component.',
+          level: 3
+        });
       }
     });
   }

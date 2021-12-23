@@ -12,7 +12,7 @@ export async function getSwitch(filters) {
   return result.data;
 }
 
-export async function postSwitch(data) {
+export async function createSwitch(data) {
   const config = {
     headers: {
       'Content-Type': 'application/json'

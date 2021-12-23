@@ -16,14 +16,11 @@ import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import { TableListHead } from '../components/table';
 import { getReport } from '../api/report';
-import { getMachine } from '../api/machine';
-import EN2KR from '../utils/EN2KR';
-import { getSensor } from '../api/sensor';
 import { fDateTime } from '../utils/formatTime';
 
 const TABLE_HEAD = [
   { id: 'level', label: '단계', alignRight: false },
-  { id: 'name', label: '기기', alignRight: false },
+  { id: 'problem', label: '문제', alignRight: false },
   { id: 'isFixed', label: '해결', alignRight: false },
   { id: 'createdAt', label: '날짜', alignRight: false }
 ];
@@ -47,26 +44,12 @@ export default function Reports() {
   useEffect(() => {
     async function updateStates() {
       const reports = await getReport({ limit: 20 });
-      const machines = await getMachine();
-      const sensors = await getSensor();
-      const result = reports.map((report) => {
-        function classifyDevice(report) {
-          if (report.machine_id) {
-            return machines.find((machine) => machine.id === report.machine_id);
-          }
-          if (report.sensor_id) {
-            return sensors.find((sensor) => sensor.id === report.sensor_id);
-          }
-          return { name: 'algorithm' };
-        }
-        const subject = classifyDevice(report);
-        return {
-          name: subject.name,
-          level: report.level,
-          isFixed: Number(report.isFixed),
-          createdAt: report.createdAt
-        };
-      });
+      const result = reports.map((report) => ({
+        problem: report.problem,
+        level: report.level,
+        isFixed: Number(report.isFixed),
+        createdAt: report.createdAt
+      }));
       setStates(result);
     }
     updateStates();
@@ -89,7 +72,7 @@ export default function Reports() {
                   {states
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
-                      const { level, createdAt, isFixed, name } = row;
+                      const { level, createdAt, isFixed, problem } = row;
                       return (
                         <TableRow hover key={index} tabIndex={-1} role="checkbox">
                           <TableCell align="center">
@@ -107,7 +90,7 @@ export default function Reports() {
                           </TableCell>
                           <TableCell component="th" scope="row" padding="none">
                             <Stack justifyContent="center" alignItems="center" direction="row">
-                              {EN2KR[name]}
+                              {problem}
                             </Stack>
                           </TableCell>
                           <TableCell align="center">

@@ -7,5 +7,6 @@ export const URLS = {
   CREATE_SWITCH: `${ADDRESS}/switch/create`,
   GET_SENSOR: `${ADDRESS}/sensor`,
   GET_REPORT: `${ADDRESS}/report`,
+  CREATE_REPORT: `${ADDRESS}/report/create`,
   GET_MACHINE: `${ADDRESS}/machines`
 };

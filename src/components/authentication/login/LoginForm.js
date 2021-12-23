@@ -20,7 +20,6 @@ import {
   Button
 } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
-import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { login } from '../../../api/auth';
@@ -29,13 +28,17 @@ import { loginSuccess } from '../../../redux/modules/Authentication';
 
 const ModalStyle = styled(Card)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
-    width: '80%',
+    width: '40%',
+    fontSize: '0.7em !important'
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: '60%',
     fontSize: '0.7em !important'
   },
   [theme.breakpoints.up('lg')]: {
     width: '20%'
   },
-  width: '40%',
+  width: '30%',
   position: 'absolute',
   top: '50%',
   left: '50%',

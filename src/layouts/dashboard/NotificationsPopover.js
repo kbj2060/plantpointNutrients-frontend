@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useRef, useState, useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { Icon } from '@iconify/react';
 import bellFill from '@iconify/icons-eva/bell-fill';
@@ -22,9 +22,7 @@ import { mackImgNotificationAvatar } from '../../utils/mockImages';
 import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
 import { getReport } from '../../api/report';
-import { getMachine } from '../../api/machine';
-import { getSensor } from '../../api/sensor';
-import { fDescription, fTitle } from '../../utils/formatNotification';
+import { fTitle } from '../../utils/formatNotification';
 
 function renderContent(notification) {
   const title = (
@@ -87,6 +85,7 @@ function NotificationItem({ notification }) {
 }
 
 export default function NotificationsPopover() {
+  const pathname = useNavigate();
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
@@ -103,29 +102,17 @@ export default function NotificationsPopover() {
   useEffect(() => {
     async function updateNotifications() {
       const reports = await getReport({ today: true });
-      const machines = await getMachine();
-      const sensors = await getSensor();
-      const result = reports.map((r) => {
-        let subject = 'algorithm';
-        if (r.machine_id !== null) {
-          subject = machines.find((machine) => machine.id === r.machine_id).name;
-        }
-        if (r.sensor_id !== null) {
-          subject = sensors.find((sensor) => sensor.id === r.sensor_id).name;
-        }
-        console.log(subject);
-        return {
-          id: r.id,
-          avatar: mackImgNotificationAvatar(r.level),
-          title: fTitle(r.level),
-          description: fDescription(subject, r.level),
-          createdAt: r.createdAt
-        };
-      });
+      const result = reports.map((r) => ({
+        id: r.id,
+        avatar: mackImgNotificationAvatar(r.level),
+        title: fTitle(r.level),
+        description: r.problem,
+        createdAt: r.createdAt
+      }));
       setNotifications(result);
     }
     updateNotifications();
-  }, []);
+  }, [pathname]);
   return (
     <>
       <IconButton

@@ -1,5 +1,3 @@
-import {store} from "@redux/store";
+import { store } from '../redux/store';
 
-export const checkLogin = () => {
-  return store.getState()['authentication']['login']['status'] === "SUCCESS"
-}
+export const checkLogin = () => store.getState().authentication.login.status === 'SUCCESS';

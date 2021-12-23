@@ -15,7 +15,7 @@ import Page from '../components/Page';
 import Label from '../components/Label';
 import Scrollbar from '../components/Scrollbar';
 import { TableListHead } from '../components/table';
-import { getMachine } from '../api/machine';
+import { createReport } from '../api/report';
 import { getSwitch } from '../api/switch';
 import EN2KR from '../utils/EN2KR';
 import { fDateTime } from '../utils/formatTime';
@@ -47,7 +47,10 @@ export default function History() {
     async function updateStates() {
       const switches = await getSwitch({ limit: 20 });
       if (switches.length === 0) {
-        // report lv2 : machine_id, user_id are not fit
+        createReport({
+          problem: 'Machine or User data are not fit into switches data in History page.',
+          level: 2
+        });
       }
       const result = switches.map((_switch) => ({
         name: _switch.machinename,

@@ -63,6 +63,7 @@ function Authentication(state = initialState, action) {
     case AUTH_LOGIN_FAILURE:
       return initialState;
     case LOGOUT:
+      saveState('authentication', initialState);
       return initialState;
     default:
       try {

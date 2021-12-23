@@ -13,6 +13,7 @@ import {
 import { getSwitch } from '../../../api/switch';
 import { fDateTime } from '../../../utils/formatTime';
 import EN2KR from '../../../utils/EN2KR';
+import { createReport } from '../../../api/report';
 
 OrderItem.propTypes = {
   item: PropTypes.object,
@@ -52,8 +53,11 @@ export default function AppTimeline() {
     async function updateStates() {
       const switches = await getSwitch({ limit: 5 });
       if (switches.length < 5) {
-        // report lv2 : machine_id, user_id are not fit
-        // OR switch history are less than 5
+        createReport({
+          problem:
+            'Machine or User data are not fit into switches data or switch history are less than 5 in AppTimeline page',
+          level: 2
+        });
       }
       const result = switches.map((_switch) => ({
         name: _switch.machinename,

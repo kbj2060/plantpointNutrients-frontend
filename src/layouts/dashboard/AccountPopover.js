@@ -21,7 +21,7 @@ export default function AccountPopover() {
   };
   const handleClick = () => {
     store.dispatch(logout());
-    navigate('/login', { replace: true });
+    navigate('/login');
   };
   return (
     <>

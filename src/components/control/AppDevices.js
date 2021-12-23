@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Stack, Box, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { getSwitch } from '../../api/switch';
+import { getSwitch, createSwitch } from '../../api/switch';
 import { getMachine } from '../../api/machine';
+import { createReport } from '../../api/report';
 import PowerToggleButton from '../PowerToggleButton';
+import { store } from '../../redux/store';
 
 const RootStyle = styled(Card)(({ theme }) => ({
   boxShadow: 'none',
@@ -24,9 +26,18 @@ export default function AppDevices() {
       const result = machines.map((dm) => {
         const foundMachine = switches.find((s) => dm.id === s.machine_id);
         if (foundMachine === undefined) {
-          // lv3 Report created thr axios post
-          // turn off the device ( axios post off )
-          console.warn('Switch data fit into machine is not existed!');
+          createReport({
+            problem: 'Switch data related to machine data is not existed in AppDevices component.',
+            level: 3
+          }).then(() => {
+            const req = {
+              name: dm.name,
+              status: 0,
+              machine_id: dm.id,
+              controlledBy: store.getState().authentication.status.currentUser
+            };
+            createSwitch(req);
+          });
         }
         return {
           name: dm.name,
