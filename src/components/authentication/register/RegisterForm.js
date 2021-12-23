@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { Stack, TextField, IconButton, InputAdornment } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 import { register } from '../../../api/auth';
+import { store } from '../../../redux/store';
+import { loginSuccess } from '../../../redux/modules/Authentication';
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -30,8 +32,13 @@ export default function RegisterForm() {
     },
     validationSchema: RegisterSchema,
     onSubmit: (info) => {
-      register(info);
-      navigate('/dashboard', { replace: true });
+      register(info).then(({ data }) => {
+        if (data) {
+          const { name, authorization } = data;
+          store.dispatch(loginSuccess(name, authorization));
+          navigate('/dashboard', { replace: true });
+        }
+      });
     }
   });
 

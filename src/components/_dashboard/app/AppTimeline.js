@@ -11,7 +11,6 @@ import {
 } from '@mui/lab';
 
 import { getSwitch } from '../../../api/switch';
-import { getMachine } from '../../../api/machine';
 import { fDateTime } from '../../../utils/formatTime';
 import EN2KR from '../../../utils/EN2KR';
 
@@ -52,8 +51,9 @@ export default function AppTimeline() {
   useEffect(() => {
     async function updateStates() {
       const switches = await getSwitch({ limit: 5 });
-      if (switches.length === 0) {
+      if (switches.length < 5) {
         // report lv2 : machine_id, user_id are not fit
+        // OR switch history are less than 5
       }
       const result = switches.map((_switch) => ({
         name: _switch.machinename,

@@ -10,7 +10,7 @@ import Page from '../components/Page';
 export default function DashboardApp() {
   return (
     <Page title="Dashboard">
-      <Container maxWidth={false}>
+      <Container maxWidth="xl">
         <Grid container spacing={2}>
           {new EnvironmentConfig().config.map((c) => (
             <Grid key={c.label} item xs={6} sm={6} md={6}>

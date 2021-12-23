@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
@@ -15,7 +15,7 @@ import { store } from '../../redux/store';
 
 // ----------------------------------------------------------------------
 
-const DRAWER_WIDTH = 280;
+const DRAWER_WIDTH = 320;
 
 const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
@@ -41,14 +41,15 @@ DashboardSidebar.propTypes = {
 
 export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
   const { pathname } = useLocation();
-  const username = store.getState().authentication.status.currentUser;
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
+    setUsername(store.getState().authentication.status.currentUser);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  }, [pathname, username]);
 
   const renderContent = (
     <Scrollbar
@@ -70,9 +71,6 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
             <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
               {username}
             </Typography>
-            {/* <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              {account.role}
-            </Typography> */}
           </Box>
         </AccountStyle>
       </Box>

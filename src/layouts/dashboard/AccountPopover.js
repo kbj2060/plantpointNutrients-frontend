@@ -28,7 +28,6 @@ export default function AccountPopover() {
       <IconButton
         ref={anchorRef}
         onClick={handleOpen}
-        fullwidth="true"
         sx={{
           padding: 0,
           width: 44,
@@ -62,7 +61,7 @@ export default function AccountPopover() {
         </Box>
         <Divider sx={{ my: 1 }} />
         <Box sx={{ p: 2, pt: 1.5 }}>
-          <Button fullwidth color="inherit" variant="outlined" onClick={handleClick}>
+          <Button fullwidth="true" color="inherit" variant="outlined" onClick={handleClick}>
             로그아웃
           </Button>
         </Box>
