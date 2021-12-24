@@ -1,3 +1,4 @@
+import React from 'react';
 import { Container, Grid, Typography } from '@mui/material';
 import Page from '../components/Page';
 import { AutomationControlComponent } from '../components/automation';

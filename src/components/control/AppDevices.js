@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Stack, Box, Card } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { getSwitch, createSwitch } from '../../api/switch';

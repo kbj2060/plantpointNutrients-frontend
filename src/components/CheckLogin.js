@@ -11,7 +11,7 @@ export default function CheckLogin() {
       if (pathname === '/register') return;
       navigate('/login');
     }
-  }, [pathname]);
+  }, [pathname, navigate]);
 
   return null;
 }

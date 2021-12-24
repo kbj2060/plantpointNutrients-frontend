@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Icon } from '@iconify/react';
 import { useFormik, Form, FormikProvider } from 'formik';
 import eyeFill from '@iconify/icons-eva/eye-fill';
@@ -78,13 +78,13 @@ export default function RegisterForm() {
             navigate('/dashboard', { replace: true });
           }
         })
-        .catch((error) => {
+        .catch(() => {
           handleOpen();
         });
     }
   });
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+  const { errors, touched, handleSubmit, getFieldProps } = formik;
 
   return (
     <>
@@ -92,14 +92,12 @@ export default function RegisterForm() {
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
           <Stack spacing={3}>
             <TextField
-              fullwidth
               label="이름"
               {...getFieldProps('name')}
               error={Boolean(touched.name && errors.name)}
               helperText={touched.name && errors.name}
             />
             <TextField
-              fullwidth
               autoComplete="username"
               type="email"
               label="이메일"
@@ -109,7 +107,6 @@ export default function RegisterForm() {
             />
 
             <TextField
-              fullwidth
               autoComplete="current-password"
               type={showPassword ? 'text' : 'password'}
               label="비밀번호"
@@ -127,7 +124,7 @@ export default function RegisterForm() {
               helperText={touched.password && errors.password}
             />
 
-            <Button fullwidth size="large" type="submit" variant="contained">
+            <Button size="large" type="submit" variant="contained">
               Register
             </Button>
           </Stack>
@@ -144,7 +141,7 @@ export default function RegisterForm() {
             <img
               alt="login_failed"
               src="/static/illustrations/illustration_login_failed.png"
-              styles={{ margin: '0 auto' }}
+              style={{ margin: '0 auto' }}
             />
             <Stack sx={{ padding: '5% 0' }} direction="row" spacing={10} justifyContent="center">
               <Typography

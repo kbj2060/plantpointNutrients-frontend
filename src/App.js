@@ -1,3 +1,4 @@
+import React from 'react';
 import axios from 'axios';
 import Router from './routes';
 import ThemeConfig from './theme';

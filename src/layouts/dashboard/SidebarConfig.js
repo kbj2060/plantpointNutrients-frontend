@@ -1,3 +1,4 @@
+import React from 'react';
 import { Icon } from '@iconify/react';
 import dashboardLine from '@iconify/icons-ri/dashboard-line';
 import historyOutlined from '@iconify/icons-ant-design/history-outlined';

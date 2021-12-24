@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
-import { useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik, Form, FormikProvider } from 'formik';
 import { Icon } from '@iconify/react';
 import eyeFill from '@iconify/icons-eva/eye-fill';
@@ -8,7 +8,6 @@ import eyeOffFill from '@iconify/icons-eva/eye-off-fill';
 // material
 import {
   Card,
-  Link,
   Stack,
   Checkbox,
   TextField,
@@ -77,13 +76,13 @@ export default function LoginForm() {
           store.dispatch(loginSuccess(name, authorization));
           navigate('/dashboard', { replace: true });
         })
-        .catch((error) => {
+        .catch(() => {
           handleOpen();
         });
     }
   });
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, values, handleSubmit, getFieldProps } = formik;
 
   const handleShowPassword = () => {
     setShowPassword((show) => !show);
@@ -146,7 +145,7 @@ export default function LoginForm() {
             <img
               alt="login_failed"
               src="/static/illustrations/illustration_login_failed.png"
-              styles={{ margin: '0 auto' }}
+              style={{ margin: '0 auto' }}
             />
             <Stack sx={{ padding: '5% 0' }} direction="row" spacing={10} justifyContent="center">
               <Typography

@@ -1,3 +1,4 @@
+import React from 'react';
 import 'simplebar/src/simplebar.css';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';

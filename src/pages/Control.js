@@ -1,3 +1,4 @@
+import React from 'react';
 import { Container, Grid, Stack, Typography } from '@mui/material';
 import Page from '../components/Page';
 import AppDevices from '../components/control/AppDevices';
