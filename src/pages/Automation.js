@@ -14,7 +14,7 @@ export default function Automation() {
         <Grid container spacing={3}>
           {new AutomationConfig().config.map((c) => (
             <Grid key={c.label} item xs={6} sm={6} md={6}>
-              <AutomationControlComponent label={c.label} icon={c.icon} color={c.color} />
+              <AutomationControlComponent {...c} />
             </Grid>
           ))}
         </Grid>

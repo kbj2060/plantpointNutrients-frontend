@@ -9,22 +9,26 @@ export class AutomationConfig {
     {
       label: 'watersupply',
       icon: bxWater,
-      color: palette.info
+      color: palette.info,
+      unit: 5
     },
     {
-      label: 'watercycle',
+      label: 'sprayterm',
       icon: cycleIcon,
-      color: palette.warning
+      color: palette.warning,
+      unit: 1
     },
     {
-      label: 'waterspray',
+      label: 'spraytime',
       icon: sprayIcon,
-      color: palette.primary
+      color: palette.primary,
+      unit: 1
     },
     {
       label: 'nutrientsupply',
       icon: bottleIcon,
-      color: palette.error
+      color: palette.error,
+      unit: 1
     }
   ];
 }

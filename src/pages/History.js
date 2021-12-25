@@ -48,7 +48,8 @@ export default function History() {
       const switches = await getSwitch({ limit: 20 });
       if (switches.length === 0) {
         createReport({
-          problem: 'Machine or User data are not fit into switches data in History page.',
+          problem:
+            'History 페이지에서 Machine 혹은 User가 Switch에 맞지 않습니다. 위 세 테이블 검사바랍니다.',
           level: 2
         });
       }
@@ -88,7 +89,9 @@ export default function History() {
                               {EN2KR[name]}
                             </Stack>
                           </TableCell>
-                          <TableCell align="center">{controlledBy}</TableCell>
+                          <TableCell align="center">
+                            {controlledBy === 'auto' ? '자동' : controlledBy}
+                          </TableCell>
                           <TableCell align="center">
                             <Label variant="ghost" color={(status === 0 && 'error') || 'success'}>
                               {(status === 0 && '꺼짐') || '켜짐'}

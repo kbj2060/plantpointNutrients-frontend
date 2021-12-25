@@ -46,17 +46,18 @@ const ModalStyle = styled(Card)(({ theme, bg }) => ({
 AutomationControlComponent.propTypes = {
   label: PropTypes.string,
   icon: PropTypes.object,
-  color: PropTypes.object
+  color: PropTypes.object,
+  unit: PropTypes.number
 };
 
-export default function AutomationControlComponent({ label, icon, color }) {
+export default function AutomationControlComponent({ label, icon, color, unit }) {
   const [open, setOpen] = useState(false);
   const [amount, setAmount] = useState(0);
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleAmountUp = () => setAmount(amount + 1);
-  const handleAmountDown = () => amount > 0 && setAmount(amount - 1);
+  const handleAmountUp = () => setAmount(amount + unit);
+  const handleAmountDown = () => amount > 0 && setAmount(amount - unit);
   const handleOK = () => {
     saveAutomation(label, amount);
     handleClose();
@@ -71,7 +72,7 @@ export default function AutomationControlComponent({ label, icon, color }) {
       if (automation === undefined) {
         setAmount(0);
       } else {
-        const amount = automation.quantity === undefined ? automation.period : automation.quantity;
+        const amount = automation.quantity ?? automation.period;
         setAmount(amount);
       }
     }

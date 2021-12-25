@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { useRef, useState, useEffect } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import { formatDistanceToNowStrict } from 'date-fns';
+import moment from 'moment';
 import { Icon } from '@iconify/react';
 import bellFill from '@iconify/icons-eva/bell-fill';
 import clockFill from '@iconify/icons-eva/clock-fill';
@@ -28,7 +28,7 @@ function renderContent(notification) {
   const title = (
     <Typography variant="subtitle2">
       {notification.title}
-      <Typography component="span" variant="body3" sx={{ color: 'text.secondary' }}>
+      <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
         &nbsp;&nbsp; {notification.description}
       </Typography>
     </Typography>
@@ -76,7 +76,7 @@ function NotificationItem({ notification }) {
             }}
           >
             <Box component={Icon} icon={clockFill} sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {formatDistanceToNowStrict(new Date(notification.createdAt), { unit: 'hour' })}
+            {moment(new Date(notification.createdAt)).format('LT')}
           </Typography>
         }
       />

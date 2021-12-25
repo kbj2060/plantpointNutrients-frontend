@@ -27,8 +27,9 @@ export default function AppDevices() {
         const foundMachine = switches.find((s) => dm.id === s.machine_id);
         if (foundMachine === undefined) {
           createReport({
-            problem: 'Switch data related to machine data is not existed in AppDevices component.',
-            level: 3
+            problem:
+              'AppDevices 컴포넌트에서 Switch에 맞는 Machine을 찾을 수 없습니다. 위 두 테이블 검사바랍니다.',
+            level: 1
           }).then(() => {
             const req = {
               name: dm.name,

@@ -1,6 +1,6 @@
 const formatUnit = {
-  watercycle: '일',
-  waterspray: '분',
+  sprayterm: '분',
+  spraytime: '초',
   watersupply: 'l',
   nutrientsupply: 'ml',
   temperature: '℃',

@@ -29,7 +29,8 @@ export default function PowerToggleButton({ device }) {
     createSwitch(req).then((res) => {
       if (res.data === null) {
         createReport({
-          problem: 'User Not Found in PowerToggleButton component.',
+          problem:
+            'PowerToggleButton 컴포넌트에서 해당 유저를 찾을 수 없습니다. User 테이블 검사바랍니다.',
           level: 3
         });
       }

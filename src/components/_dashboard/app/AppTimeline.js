@@ -55,7 +55,7 @@ export default function AppTimeline() {
       if (switches.length < 5) {
         createReport({
           problem:
-            'Machine or User data are not fit into switches data or switch history are less than 5 in AppTimeline page',
+            'User 혹은 Machine의 데이터가 Switch 데이터에 맞지 않거나 데이터가 5개 이하입니다. 위 세 테이블 검사바랍니다.',
           level: 2
         });
       }
