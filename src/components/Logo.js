@@ -15,10 +15,8 @@ export default function Logo({ sx }) {
       component="img"
       src="/static/logo.png"
       sx={{
-        justifyContent: 'center',
-        display: 'flex',
         width: '100px',
-        height: '75px',
+        height: '100px',
         ...sx
       }}
     />
