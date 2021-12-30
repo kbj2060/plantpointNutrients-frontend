@@ -32,8 +32,6 @@ const AccountStyle = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.grey[200]
 }));
 
-// ----------------------------------------------------------------------
-
 DashboardSidebar.propTypes = {
   isOpenSidebar: PropTypes.bool,
   onCloseSidebar: PropTypes.func
@@ -59,7 +57,11 @@ export default function DashboardSidebar({ isOpenSidebar, onCloseSidebar }) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3 }}>
-        <Box component={RouterLink} to="/" sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Box
+          component={RouterLink}
+          to="/dashboard/app"
+          sx={{ display: 'flex', justifyContent: 'center' }}
+        >
           <Logo />
         </Box>
       </Box>
