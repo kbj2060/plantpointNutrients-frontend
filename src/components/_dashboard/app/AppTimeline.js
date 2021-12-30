@@ -22,7 +22,6 @@ OrderItem.propTypes = {
 
 function OrderItem({ item, isLast }) {
   const { status, name, createdAt, controlledBy } = item;
-
   return (
     <TimelineItem>
       <TimelineSeparator>
