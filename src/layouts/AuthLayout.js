@@ -36,7 +36,7 @@ AuthLayout.propTypes = {
 export default function AuthLayout({ children }) {
   return (
     <HeaderStyle>
-      <RouterLink to="/">
+      <RouterLink to="/app">
         <Logo />
       </RouterLink>
 
