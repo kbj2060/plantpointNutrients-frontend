@@ -21,12 +21,13 @@ export default function Router() {
       path: '/dashboard',
       element: <DashboardLayout />,
       children: [
-        { element: <Navigate to="/dashboard/app" /> },
+        { element: <Navigate to="/dashboard/app" replace /> },
         { path: 'app', element: <DashboardApp /> },
         { path: 'control', element: <Control /> },
         { path: 'history', element: <History /> },
         { path: 'automation', element: <Automation /> },
-        { path: 'reports', element: <Reports /> }
+        { path: 'reports', element: <Reports /> },
+        { path: '/', element: <Navigate to="/dashboard/app" /> }
       ]
     },
     {
