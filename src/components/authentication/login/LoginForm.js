@@ -74,7 +74,7 @@ export default function LoginForm() {
         .then(({ data }) => {
           const { name, authorization } = data;
           store.dispatch(loginSuccess(name, authorization));
-          navigate('/dashboard', { replace: true });
+          navigate('/dashboard/app', { replace: true });
         })
         .catch(() => {
           handleOpen();

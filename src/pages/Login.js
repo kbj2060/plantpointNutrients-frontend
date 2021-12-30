@@ -30,12 +30,6 @@ export default function Login() {
     <RootStyle title="로그인">
       <Container maxWidth="sm">
         <ContentStyle>
-          {/* <img
-            style={{ margin: '0 auto', paddingBottom: '10%' }}
-            width="50%"
-            src="/static/illustrations/illustration_login.png"
-            alt="login"
-          /> */}
           <LoginForm />
           <Typography variant="body2" align="center" sx={{ mt: 3 }}>
             Don’t have an account?&nbsp;

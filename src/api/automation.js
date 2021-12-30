@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { ADDRESS } from '../config/index';
 
 export async function getAutomation(label, filters) {
   const config = {

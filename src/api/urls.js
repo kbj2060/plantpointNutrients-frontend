@@ -1,5 +1,5 @@
-export const ADDRESS = 'http://mudeulro29.iptime.org:9100';
 // export const ADDRESS = 'http://127.0.0.1:8000';
+import { ADDRESS } from '../config/index';
 
 export const URLS = {
   LOGIN: `${ADDRESS}/login`,

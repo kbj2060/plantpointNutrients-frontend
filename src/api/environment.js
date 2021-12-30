@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADDRESS } from './urls';
+import { ADDRESS } from '../config/index';
 
 export async function getEnvironment(label, filters) {
   const config = {
