@@ -34,6 +34,10 @@ const IconWrapperStyle = styled('div')(({ theme, bg }) => ({
 }));
 
 const ModalStyle = styled(Card)(({ theme, bg }) => ({
+  [theme.breakpoints.down('md')]: {
+    width: '55%',
+    height: 'auto'
+  },
   width: '30%',
   position: 'absolute',
   top: '50%',
