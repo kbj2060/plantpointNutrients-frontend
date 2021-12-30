@@ -70,7 +70,6 @@ export default function LoginForm() {
     },
     validationSchema: LoginSchema,
     onSubmit: (info) => {
-      console.log(info);
       login(info)
         .then(({ data }) => {
           const { name, authorization } = data;

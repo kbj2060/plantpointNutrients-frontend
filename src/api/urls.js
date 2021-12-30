@@ -1,4 +1,4 @@
-export const ADDRESS = 'http://121.157.207.47:9001';
+export const ADDRESS = 'http://127.0.0.1:8000';
 
 export const URLS = {
   LOGIN: `${ADDRESS}/login`,
