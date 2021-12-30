@@ -38,7 +38,7 @@ export default function PowerToggleButton({ device }) {
   }
   return (
     <Stack direction="row" alignItems="center" justifyContent="space-between">
-      <Typography>{EN2KR[name]}</Typography>
+      <Typography sx={{ fontSize: '0.8em', fontWeight: '900' }}>{EN2KR[name]}</Typography>
       <IconButton
         value="check"
         selected={selected}

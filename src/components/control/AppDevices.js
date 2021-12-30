@@ -65,7 +65,8 @@ export default function AppDevices() {
           <Box
             key={index}
             sx={{
-              px: 2,
+              paddingLeft: '6px',
+              paddingRight: '10px',
               py: 1,
               flex: '1 1 50%',
               maxWidth: '50%'
