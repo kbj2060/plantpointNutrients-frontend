@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TableRow, TableCell, TableHead, styled } from '@mui/material';
+import { TableRow, TableCell, TableHead, styled, Box } from '@mui/material';
 import { tableCellClasses } from '@mui/material/TableCell';
 
 TableListHead.propTypes = {
@@ -20,7 +20,7 @@ export default function TableListHead({ headLabel }) {
       <TableRow>
         {headLabel.map((headCell) => (
           <StyledTableCell sx={{ padding: '10px' }} align="right" key={headCell.id}>
-            <TableRow sx={{ display: 'flex', justifyContent: 'center' }}>{headCell.label}</TableRow>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>{headCell.label}</Box>
           </StyledTableCell>
         ))}
       </TableRow>
