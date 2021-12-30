@@ -26,8 +26,7 @@ export default function Router() {
         { path: 'control', element: <Control /> },
         { path: 'history', element: <History /> },
         { path: 'automation', element: <Automation /> },
-        { path: 'reports', element: <Reports /> },
-        { path: '/', element: <Navigate to="/dashboard/app" /> }
+        { path: 'reports', element: <Reports /> }
       ]
     },
     {
