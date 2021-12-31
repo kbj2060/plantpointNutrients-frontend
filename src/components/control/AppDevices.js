@@ -58,6 +58,7 @@ export default function AppDevices() {
           display: 'flex',
           flexWrap: 'wrap',
           flexDirection: 'row',
+          height: '100%',
           p: 2
         }}
       >

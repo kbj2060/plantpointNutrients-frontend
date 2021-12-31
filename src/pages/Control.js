@@ -13,7 +13,7 @@ export default function Control() {
           </Typography>
         </Stack>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={12} md={6} sx={{ minWidth: '250px' }}>
+          <Grid item xs={12} sm={12} md={6} sx={{ height: 'auto', minWidth: '250px' }}>
             <AppDevices />
           </Grid>
           <Grid item xs={12} sm={12} md={6} sx={{ minWidth: '250px' }}>
