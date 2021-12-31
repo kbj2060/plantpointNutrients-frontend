@@ -6,7 +6,7 @@ import AppDevices from '../components/control/AppDevices';
 export default function Control() {
   return (
     <Page title="Control">
-      <Container>
+      <Container sx={{ alignItems: 'center' }}>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             기기 조종

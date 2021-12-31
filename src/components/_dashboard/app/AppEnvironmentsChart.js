@@ -12,7 +12,7 @@ export default function AppEnvironmentsChart() {
   const [states, setStates] = useState([]);
 
   const chartOptions = merge(BaseOptionChart(), {
-    stroke: { width: [1, 3] },
+    stroke: { width: [2, 2] },
     plotOptions: { bar: { columnWidth: '11%', borderRadius: 4 } },
     fill: { type: ['solid'] },
     xaxis: {
@@ -75,7 +75,7 @@ export default function AppEnvironmentsChart() {
 
   return (
     <Card>
-      <CardHeader title="환경 모니터링" subheader="온도와 습도" />
+      <CardHeader title="환경 모니터링" />
       <Box sx={{ p: 2, pb: 1 }} dir="ltr">
         <ReactApexChart type="line" series={states} options={chartOptions} height={364} />
       </Box>
