@@ -48,7 +48,7 @@ function NotificationItem({ notification }) {
 
   return (
     <ListItemButton
-      to="#"
+      to="/dashboard/reports"
       disableGutters
       component={RouterLink}
       sx={{
@@ -137,20 +137,23 @@ export default function NotificationsPopover() {
         anchorEl={anchorRef.current}
         sx={{ width: 360 }}
       >
-        <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
-          <List
-            disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                알림
-              </ListSubheader>
-            }
-          >
-            {notifications.map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
-            ))}
-          </List>
-        </Scrollbar>
+        <List
+          disablePadding
+          subheader={
+            <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
+              알림
+            </ListSubheader>
+          }
+          sx={{
+            position: 'relative',
+            overflow: 'auto',
+            maxHeight: 300
+          }}
+        >
+          {notifications.map((notification) => (
+            <NotificationItem key={notification.id} notification={notification} />
+          ))}
+        </List>
       </MenuPopover>
     </>
   );
