@@ -19,7 +19,6 @@ import {
   ListItemButton
 } from '@mui/material';
 import { mackImgNotificationAvatar } from '../../utils/mockImages';
-import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
 import { getReport } from '../../api/report';
 import { fTitle } from '../../utils/formatNotification';
