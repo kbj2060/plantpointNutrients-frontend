@@ -16,7 +16,7 @@ export class AutomationConfig {
       label: 'sprayterm',
       icon: cycleIcon,
       color: palette.warning,
-      unit: 1
+      unit: 5
     },
     {
       label: 'spraytime',
