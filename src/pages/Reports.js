@@ -120,6 +120,7 @@ export default function Reports() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage=""
           />
         </Card>
       </Container>

@@ -119,6 +119,7 @@ export default function History() {
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage=""
           />
         </Card>
       </Container>
